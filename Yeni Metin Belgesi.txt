@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eva Global | Premium Aluminum Extrusion & Outdoor Products</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background: #0b0f19; color: #f1f5f9; overflow-x: hidden; scroll-behavior: smooth; }
+
+    /* --- HEADER --- */
+    header { background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: 0.3s; }
+    .header-logo { background: #fff; padding: 8px 16px; border-radius: 8px; }
+    .header-logo img { height: 40px; display: block; mix-blend-mode: multiply; }
+    .header-nav { display: flex; gap: 35px; }
+    .header-nav a { color: #cbd5e1; text-decoration: none; font-weight: 500; font-size: 0.95rem; cursor: pointer; transition: 0.3s; letter-spacing: 0.5px; text-transform: uppercase;}
+    .header-nav a:hover, .header-nav a.active { color: #38bdf8; text-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+    .header-contact { background: #38bdf8; color: #0b0f19; padding: 12px 28px; border-radius: 30px; font-weight: 700; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;}
+    .header-contact:hover { background: #0ea5e9; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3); }
+
+    /* --- PAGE STRUCTURE --- */
+    .page-section { display: none; min-height: 100vh; padding-top: 85px; animation: fadeIn 0.5s ease; }
+    .page-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- HOME (VIDEO BACKGROUND) --- */
+    #home-section { position: relative; height: 100vh; display: flex; align-items: center; justify-content: flex-start; padding-left: 10%; overflow: hidden; }
+    .hero-video { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: -2; transform: translateX(-50%) translateY(-50%); object-fit: cover; opacity: 0.6; }
+    .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(11, 15, 25, 1) 20%, rgba(11, 15, 25, 0.3)); z-index: -1; }
+    
+    .hero-content { max-width: 800px; z-index: 2; }
+    .hero-content h1 { font-size: 5rem; font-weight: 800; line-height: 1.05; margin-bottom: 25px; color: #ffffff; letter-spacing: -1px; }
+    .hero-content h1 span { color: #38bdf8; }
+    .hero-content p { font-size: 1.3rem; color: #cbd5e1; margin-bottom: 40px; line-height: 1.6; max-width: 600px; font-weight: 300;}
+    .hero-btn { background: #38bdf8; color: #0b0f19; padding: 18px 40px; border-radius: 30px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;}
+    .hero-btn:hover { background: #0284c7; color: white; transform: translateX(5px); box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4); }
+    
+    .tech-stats-bar { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; padding: 25px 5%; z-index: 10; }
+    .stat-item { display: flex; align-items: center; gap: 15px; color: #f8fafc; }
+    .stat-item .icon { font-size: 2rem; color: #38bdf8; }
+    .stat-item div h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+    .stat-item div p { font-size: 0.85rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px;}
+
+    /* --- PRODUCTS LIST --- */
+    #products-section { padding: 80px 5%; background: #0b0f19; }
+    .section-header { text-align: center; margin-bottom: 80px; }
+    .section-header h2 { font-size: 3rem; color: #fff; font-weight: 800; margin-bottom: 15px; }
+    .section-header p { color: #94a3b8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+    
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1400px; margin: 0 auto; }
+    .product-card { background: #111827; border-radius: 20px; overflow: hidden; transition: 0.4s; border: 1px solid #1e293b; cursor: pointer; position: relative; }
+    .product-card:hover { transform: translateY(-10px); border-color: #38bdf8; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+    .product-img { height: 280px; width: 100%; position: relative; overflow: hidden; }
+    .product-img img, .product-img video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+    .product-card:hover .product-img img, .product-card:hover .product-img video { transform: scale(1.08); }
+    .product-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #111827 5%, transparent); }
+    .product-info { padding: 30px; position: relative; z-index: 2; margin-top: -30px; }
+    .product-info h3 { font-size: 1.6rem; margin-bottom: 10px; color: #f8fafc; font-weight: 700; }
+    .product-info p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
+    .tech-badges { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+    .tech-badge { background: rgba(56, 189, 248, 0.1); color: #38bdf8; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; border: 1px solid rgba(56, 189, 248, 0.2); }
+    .product-link { display: inline-flex; align-items: center; gap: 8px; color: #fff; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: 0.2s;}
+    .product-card:hover .product-link { color: #38bdf8; }
+
+    /* --- PRODUCT DETAIL PAGE --- */
+    #product-detail-section { background: #0b0f19; padding-top: 85px;}
+    .detail-hero { width: 100%; height: 65vh; position: relative; display: flex; align-items: center; padding: 0 10%; overflow: hidden;}
+    .detail-hero video, .detail-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.7;}
+    .detail-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(11,15,25,1) 30%, rgba(11,15,25,0.2)); z-index: 2; }
+    .detail-hero-content { position: relative; z-index: 3; max-width: 800px; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #94a3b8; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-bottom: 30px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+    .back-btn:hover { color: #38bdf8; }
+    .detail-hero-content h1 { font-size: 4rem; color: #ffffff; font-weight: 800; margin-bottom: 20px; line-height: 1.1;}
+    .detail-hero-content p { font-size: 1.25rem; color: #cbd5e1; max-width: 600px; line-height: 1.6; font-weight: 300;}
+
+    .detail-body { max-width: 1400px; margin: 0 auto; padding: 80px 5%; display: grid; grid-template-columns: 2.5fr 1fr; gap: 60px; }
+    
+    .tech-overview h2 { font-size: 2.2rem; color: #f8fafc; margin-bottom: 25px; font-weight: 800; }
+    .tech-overview p { color: #94a3b8; line-height: 1.8; margin-bottom: 40px; font-size: 1.1rem; }
+    
+    .tech-visual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 60px; }
+    .tech-visual-card { background: #111827; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b; }
+    .tech-visual-card video, .tech-visual-card img { width: 100%; height: 250px; object-fit: cover; border-bottom: 1px solid #1e293b; }
+    .tech-visual-card div { padding: 25px; }
+    .tech-visual-card h4 { color: #38bdf8; font-size: 1.2rem; margin-bottom: 10px; }
+    .tech-visual-card p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
+
+    .tech-table-container { margin-bottom: 60px; }
+    .tech-table-container h3 { font-size: 1.5rem; color: #fff; margin-bottom: 20px; }
+    .tech-table { width: 100%; border-collapse: collapse; background: #111827; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
+    .tech-table th, .tech-table td { padding: 18px 25px; text-align: left; border-bottom: 1px solid #1e293b; }
+    .tech-table th { background: rgba(56, 189, 248, 0.05); color: #38bdf8; font-weight: 600; width: 40%; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;}
+    .tech-table td { color: #cbd5e1; font-size: 0.95rem; font-weight: 500;}
+    .tech-table tr:last-child th, .tech-table tr:last-child td { border-bottom: none; }
+
+    .action-panel { position: sticky; top: 110px; }
+    .offer-card { background: linear-gradient(145deg, #111827, #0b0f19); border: 1px solid #334155; border-radius: 20px; padding: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .offer-card h3 { color: #ffffff; font-size: 1.5rem; margin-bottom: 30px; font-weight: 800; }
+    
+    .perf-bar-group { margin-bottom: 20px; }
+    .perf-label { display: flex; justify-content: space-between; color: #94a3b8; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase;}
+    .perf-label span.val { color: #f8fafc; }
+    .perf-track { width: 100%; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+    .perf-fill { height: 100%; background: #38bdf8; border-radius: 3px; }
+    
+    .offer-list { list-style: none; margin: 40px 0; }
+    .offer-list li { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #334155; color: #cbd5e1; font-size: 0.95rem; }
+    .offer-list li:last-child { border-bottom: none; }
+    .offer-list li span { font-weight: 700; color: #fff; }
+    .detail-action-btn { background: #38bdf8; color: #0b0f19; border: none; padding: 20px; width: 100%; border-radius: 12px; font-size: 1.1rem; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px;}
+    .detail-action-btn:hover { background: #0284c7; color: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3); }
+
+    /* --- 3D CONFIGURATOR --- */
+    #configurator-section { display: flex; height: 100vh; padding-top: 85px; overflow: hidden; }
+    #sidebar { width: 480px; background: #111827; border-right: 1px solid #1e293b; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; z-index: 10; box-shadow: 10px 0 30px rgba(0,0,0,0.5); }
+    #sidebar::-webkit-scrollbar { width: 6px; } #sidebar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    
+    h2.sidebar-title { font-size: 1.4rem; color: #fff; font-weight: 800; margin-bottom: 5px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    label { font-size: 0.72rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;}
+    
+    input[type=number], select { background: #0b0f19; border: 1px solid #334155; color: #f8fafc; padding: 12px 15px; border-radius: 8px; font-size: 0.95rem; transition: 0.2s; font-weight: 500;}
+    input:focus, select:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1); }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .roof-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .roof-btn { background: #0b0f19; border: 1px solid #334155; color: #94a3b8; padding: 12px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
+    .roof-btn.active { background: #38bdf8; color: #0b0f19; border-color: #38bdf8; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3); }
+
+    .module-box { background: #0f172a; padding: 20px; border-radius: 12px; border: 1px solid #1e293b; display: flex; flex-direction: column; gap: 15px; }
+    .module-title { font-size: 0.8rem; color: #38bdf8; font-weight: 800; border-bottom: 1px solid #1e293b; padding-bottom: 10px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;}
+    .facade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .checkbox-label { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #cbd5e1; cursor: pointer; font-weight: 500;}
+    .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: #38bdf8; cursor: pointer; }
+
+    .slider-container { background: #0f172a; padding: 16px; border-radius: 12px; border: 1px solid #1e293b; }
+    .slider-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 10px; color: #cbd5e1; font-weight: 600;}
+    input[type=range] { width: 100%; accent-color: #38bdf8; cursor: pointer; height: 6px; }
+
+    .summary-card { background: linear-gradient(135deg, #0ea5e9, #0284c7); border-radius: 12px; padding: 20px; text-align: center; margin-top: auto; color: white; box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3);}
+    .summary-card .area-val { font-size: 1.8rem; font-weight: 800; margin: 5px 0; }
+    .summary-card .area-label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+    .btn-action { background: #10b981; color: white; border: none; padding: 16px; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);}
+
+    /* --- ADVANCED 3D HUD (TELEMETRY) PANEL --- */
+    #canvas-container { flex: 1; position: relative; background: #e2e8f0; }
+    
+    .tech-hud { position: absolute; top: 25px; left: 25px; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(56, 189, 248, 0.2); padding: 25px; border-radius: 16px; width: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); pointer-events: none; z-index: 5; }
+    .tech-hud h4 { color: #fff; font-size: 0.95rem; text-transform: uppercase; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 12px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px;}
+    .tech-hud h4::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 2s infinite; }
+    
+    .hud-stat { margin-bottom: 15px; }
+    .hud-label { display: flex; justify-content: space-between; font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.5px;}
+    .hud-label span.val { color: #f8fafc; }
+    .hud-bar-bg { width: 100%; height: 4px; background: #1e293b; border-radius: 2px; overflow: hidden; }
+    .hud-bar-fill { height: 100%; background: #38bdf8; border-radius: 2px; transition: 0.5s ease; }
+    
+    .hud-text-list { list-style: none; margin-top: 20px; border-top: 1px solid #1e293b; padding-top: 15px;}
+    .hud-text-list li { display: flex; justify-content: space-between; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 8px; }
+    .hud-text-list li span { color: #38bdf8; font-weight: 600; }
+
+    @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.5; } }
+
+    .overlay-tag { position: absolute; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1; color: #0f172a; padding: 12px 20px; border-radius: 30px; font-size: 0.85rem; pointer-events: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-weight: 600; display: flex; align-items: center; gap: 8px;}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-logo"><img src="logo.jpg.jpg" alt="Eva Global Logo" /></div>
+    <nav class="header-nav">
+      <a onclick="showPage('home')" class="nav-link active" id="nav-home">Home</a>
+      <a onclick="showPage('products')" class="nav-link" id="nav-products">Systems & Products</a>
+      <a onclick="showPage('configurator')" class="nav-link" id="nav-configurator">3D Design Simulator</a>
+    </nav>
+    <a href="#" class="header-contact">Contact Us</a>
+  </header>
+
+  <!-- 1. HOME -->
+  <section id="home-section" class="page-section active">
+    <!-- Cinematic Video Background Placeholder (Replaces Static Image) -->
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="https://cdn.coverr.co/videos/coverr-architecture-and-clouds-2646/1080p.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1>Architectural <br><span>Perfection.</span></h1>
+      <p>Experience the ultimate outdoor living. Forte Bioclimatic pergolas, Lamella retractable roofs, and Somfy motorized Zip Flex systems designed for all seasons.</p>
+      <a onclick="showPage('configurator')" class="hero-btn">Launch 3D Simulator &rarr;</a>
+    </div>
+    <div class="tech-stats-bar">
+      <div class="stat-item"><div class="icon">🛡️</div><div><h4>6063-T5</h4><p>Aerospace Grade Aluminum</p></div></div>
+      <div class="stat-item"><div class="icon">⚙️</div><div><h4>Somfy</h4><p>Silent Automation</p></div></div>
+      <div class="stat-item"><div class="icon">❄️</div><div><h4>200 kg/m²</h4><p>Snow Load Capacity</p></div></div>
+      <div class="stat-item"><div class="icon">💨</div><div><h4>120 km/h</h4><p>Wind Test Certified</p></div></div>
+    </div>
+  </section>
+
+  <!-- 2. PRODUCTS LIST -->
+  <section id="products-section" class="page-section">
+    <div class="section-header">
+      <h2>Engineering Marvel Systems</h2>
+      <p>Outdoor solutions combining aesthetic design with superior engineering and Somfy smart home technologies.</p>
+    </div>
+    
+    <div class="products-grid">
+      <!-- Forte Bioclimatic -->
+      <div class="product-card" onclick="openProductDetail('forte')">
+        <div class="product-img">
+            <video autoplay loop muted playsinline><source src="https://cdn.coverr.co/videos/coverr-modern-building-with-glass-windows-4493/1080p.mp4" type="video/mp4"></video>
+        </div>
+        <div class="product-info">
+          <div class="tech-badges"><span class="tech-badge">110° Rotation</span><span class="tech-badge">Water Drainage</span></div>
+          <h3>Forte Bioclimatic Pergola</h3>
+          <p>Adjustable and remotely controlled mobile blades that naturally regulate light, airflow, and temperature.</p>
+          <span class="product-link">View Technical Details &rarr;</span>
+        </div>
+      </div>
+      <!-- Lamella Retractable Roof -->
+      <div class="product-card" onclick="openProductDetail('lamella')">
+        <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd64bd15?auto=format&fit=crop&w=800&q=80" alt="Lamella Roof">
+        </div>
+        <div class="product-info">
+          <div class="tech-badges"><span class="tech-badge">Fully Retractable</span><span class="tech-badge">Solid Aluminum</span></div>
+          <h3>Lamella Retractable Roof</h3>
+          <p>Unique design allowing blades to retract fully, offering nature-proof comfort and an unobstructed sky view.</p>
+          <span class="product-link">View Technical Details &rarr;</span>
+        </div>
+      </div>
+      <!-- Glass Systems -->
+      <div class="product-card" onclick="openProductDetail('glass')">
+        <div class="product-img">
+            <video autoplay loop muted playsinline><source src="https://cdn.coverr.co/videos/coverr-reflection-of-a-building-in-a-glass-window-4467/1080p.mp4" type="video/mp4"></video>
+        </div>
+        <div class="product-info">
+          <div class="tech-badges"><span class="tech-badge">Insulated Glass</span><span class="tech-badge">RTS116 / FD60</span></div>
+          <h3>Architectural Glazing</h3>
+          <p>Panorama sliding, Glass Balcony, and Guillotine systems that seamlessly integrate indoor and outdoor spaces.</p>
+          <span class="product-link">View Technical Details &rarr;</span>
+        </div>
+      </div>
+      <!-- Zip Screen -->
+      <div class="product-card" onclick="openProductDetail('zip')">
+        <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=800&q=80" alt="Zip Screen">
+        </div>
+        <div class="product-info">
+          <div class="tech-badges"><span class="tech-badge">Micro-Perforated</span><span class="tech-badge">Zip Flex</span></div>
+          <h3>Zip Flex Screens</h3>
+          <p>Motorized exterior blinds offering wind resistance, privacy, and solar protection with a secure zipper system.</p>
+          <span class="product-link">View Technical Details &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANCED PRODUCT DETAIL PAGE -->
+  <section id="product-detail-section" class="page-section">
+    <div class="detail-hero">
+      <video id="detail-hero-vid" autoplay loop muted playsinline style="display: none;"></video>
+      <img id="detail-hero-img" src="" alt="">
+      <div class="detail-overlay"></div>
+      <div class="detail-hero-content">
+        <a onclick="showPage('products')" class="back-btn">&larr; Back to All Systems</a>
+        <h1 id="detail-title">Product Title</h1>
+        <p id="detail-desc-short">Product short description will appear here.</p>
+      </div>
+    </div>
+    
+    <div class="detail-body">
+      <div class="tech-overview">
+        <h2>System and Architectural Features</h2>
+        <p id="detail-desc-long">Long description text.</p>
+        
+        <!-- Technical Visuals -->
+        <div class="tech-visual-grid">
+          <div class="tech-visual-card">
+            <img id="detail-img-1" src="" alt="Profile Detail">
+            <div>
+              <h4>Structural Engineering</h4>
+              <p>High wall thickness thermal barrier aluminum profiles and stainless 304 steel fasteners ensuring decades of durability.</p>
+            </div>
+          </div>
+          <div class="tech-visual-card">
+            <img id="detail-img-2" src="" alt="Motor Detail">
+            <div>
+              <h4>Somfy Smart Automation</h4>
+              <p>Silent motor technology working autonomously with weather sensors thanks to io-homecontrol integration.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="tech-table-container">
+          <h3>Technical Specifications</h3>
+          <table class="tech-table" id="detail-specs-table">
+            <!-- Filled via JS -->
+          </table>
+        </div>
+      </div>
+      
+      <div>
+        <div class="action-panel">
+          <div class="offer-card">
+            <h3>System Performance & Delivery</h3>
+            
+            <!-- Performance Bars -->
+            <div class="perf-bar-group">
+              <div class="perf-label"><span>Wind Resistance</span><span class="val" id="perf-wind-val">120 km/h</span></div>
+              <div class="perf-track"><div class="perf-fill" id="perf-wind-bar" style="width: 90%;"></div></div>
+            </div>
+            <div class="perf-bar-group">
+              <div class="perf-label"><span>Snow Load</span><span class="val" id="perf-snow-val">200 kg/m²</span></div>
+              <div class="perf-track"><div class="perf-fill" id="perf-snow-bar" style="width: 85%; background: #10b981;"></div></div>
+            </div>
+
+            <ul class="offer-list">
+              <li>Production Time: <span id="detail-time">3-4 Weeks</span></li>
+              <li>System Warranty: <span>5 Years Comprehensive</span></li>
+              <li>Motor Type: <span style="color: #38bdf8;">Somfy</span></li>
+              <li>Installation: <span style="color: #4ade80;">Expert Team Included</span></li>
+            </ul>
+            <button class="detail-action-btn" onclick="goToConfigurator()">
+              ⚙️ Design in 3D Simulator
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 3D CONFIGURATOR -->
+  <section id="configurator-section" class="page-section" style="display: none;">
+    <div id="sidebar">
+      <div><h2 class="sidebar-title">3D CAD Simulator</h2><p style="color:#94a3b8; font-size:0.85rem;">Determine dimensions, roof type, and facade options.</p></div>
+
+      <div class="grid-2">
+        <div class="form-group"><label>Width (m):</label><input type="number" id="width" value="5.0" min="2.5" step="0.2" /></div>
+        <div class="form-group"><label>Depth (m):</label><input type="number" id="depth" value="3.5" min="2.0" step="0.2" /></div>
+        <div class="form-group"><label>Height (m):</label><input type="number" id="frontHeight" value="2.5" min="2.1" step="0.1" /></div>
+        <div class="form-group"><label>Profile Color:</label>
+          <select id="profileColor">
+            <option value="#1c1917">Anthracite Grey (RAL 7016)</option>
+            <option value="#09090b">Matte Black (RAL 9005)</option>
+            <option value="#f8fafc">White (RAL 9016)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>ROOF SYSTEM CONFIGURATION</label>
+        <div class="roof-selector">
+          <button class="roof-btn active" id="btn-bioclimatic" onclick="setRoofType('bioclimatic', this)">Forte Bioclimatic</button>
+          <button class="roof-btn" id="btn-rolling_roof" onclick="setRoofType('rolling_roof', this)">Lamella Retractable</button>
+          <button class="roof-btn" id="btn-pergola" onclick="setRoofType('pergola', this)">Pergola Awning</button>
+          <button class="roof-btn" id="btn-veranda" onclick="setRoofType('veranda', this)">Velura Veranda</button>
+        </div>
+      </div>
+      
+      <div class="slider-container" id="roofControls">
+        <div class="slider-header"><span id="roofSliderLabel">Louver Angle (Somfy):</span><span id="roofSliderVal">0°</span></div>
+        <input type="range" id="roofActionVal" min="0" max="100" value="0" />
+      </div>
+
+      <div class="module-box">
+        <div class="module-title">LAYER 1: ARCHITECTURAL FACADES</div>
+        <div class="facade-grid">
+          <!-- FRONT FACADE -->
+          <div class="form-group"><label>Front Facade</label>
+            <select id="glazingFront" class="side-select">
+              <option value="none">Open</option>
+              <option value="guillotine">Guillotine Glass</option>
+              <option value="sliding">Standard Sliding</option>
+              <option value="rts116">RTS116 Lift & Slide</option>
+              <option value="fd60">FD60 Folding Glass</option>
+              <option value="rwt55">RWT55 Thermal System</option>
+              <option value="rwt64">RWT64 Premium Thermal</option>
+              <option value="wall">Fixed Wall</option>
+            </select>
+          </div>
+          <!-- BACK FACADE -->
+          <div class="form-group"><label>Back Facade</label>
+            <select id="glazingBack" class="side-select">
+              <option value="none">Open</option>
+              <option value="guillotine">Guillotine Glass</option>
+              <option value="sliding">Standard Sliding</option>
+              <option value="rts116">RTS116 Lift & Slide</option>
+              <option value="fd60">FD60 Folding Glass</option>
+              <option value="rwt55">RWT55 Thermal System</option>
+              <option value="rwt64">RWT64 Premium Thermal</option>
+              <option value="wall">Fixed Wall</option>
+            </select>
+          </div>
+          <!-- LEFT FACADE -->
+          <div class="form-group"><label>Left Facade</label>
+            <select id="glazingLeft" class="side-select">
+              <option value="none">Open</option>
+              <option value="guillotine">Guillotine Glass</option>
+              <option value="sliding">Standard Sliding</option>
+              <option value="rts116">RTS116 Lift & Slide</option>
+              <option value="fd60">FD60 Folding Glass</option>
+              <option value="rwt55">RWT55 Thermal System</option>
+              <option value="rwt64">RWT64 Premium Thermal</option>
+              <option value="wall">Fixed Wall</option>
+            </select>
+          </div>
+          <!-- RIGHT FACADE -->
+          <div class="form-group"><label>Right Facade</label>
+            <select id="glazingRight" class="side-select">
+              <option value="none">Open</option>
+              <option value="guillotine">Guillotine Glass</option>
+              <option value="sliding">Standard Sliding</option>
+              <option value="rts116">RTS116 Lift & Slide</option>
+              <option value="fd60">FD60 Folding Glass</option>
+              <option value="rwt55">RWT55 Thermal System</option>
+              <option value="rwt64">RWT64 Premium Thermal</option>
+              <option value="wall">Fixed Wall</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="module-box">
+        <div class="module-title">LAYER 2: ZIP SCREENS</div>
+        <div class="checkbox-grid">
+          <label class="checkbox-label"><input type="checkbox" id="zipFront" class="zip-check"> Front Facade</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipBack" class="zip-check"> Back Facade</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipLeft" class="zip-check"> Left Facade</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipRight" class="zip-check"> Right Facade</label>
+        </div>
+      </div>
+
+      <div class="slider-container" id="glassControls" style="display: none;">
+        <div class="slider-header"><span>Open/Close Glass Systems:</span><span id="glassVal">Closed</span></div>
+        <input type="range" id="glassOpenness" min="0" max="100" value="0" />
+      </div>
+      <div class="slider-container" id="zipControls" style="display: none;">
+        <div class="slider-header"><span>Zip Flex (Somfy Motor):</span><span id="zipVal">Up (Open)</span></div>
+        <input type="range" id="zipOpenness" min="0" max="100" value="100" />
+      </div>
+
+      <div class="summary-card">
+        <div class="area-label">Total Covered Area</div>
+        <div class="area-val" id="areaDisplay">17.50 m²</div>
+      </div>
+      <button class="btn-action" onclick="sendWhatsAppOffer()">💬 Request Project Quote</button>
+    </div>
+
+    <!-- 3D SCENE AREA & NEW HUD -->
+    <div id="canvas-container">
+      <div class="tech-hud" id="techHudPanel">
+        <h4>Live Telemetry</h4>
+        
+        <div class="hud-stat">
+          <div class="hud-label"><span>Wind Load Resistance</span><span class="val" id="hud-wind-val">120 km/h</span></div>
+          <div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-wind-bar" style="width: 90%;"></div></div>
+        </div>
+        <div class="hud-stat">
+          <div class="hud-label"><span>Snow Load Capacity</span><span class="val" id="hud-snow-val">200 kg/m²</span></div>
+          <div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-snow-bar" style="width: 85%; background: #10b981;"></div></div>
+        </div>
+        
+        <ul class="hud-text-list">
+          <li>Static Alloy <span>6063-T5 Extrusion</span></li>
+          <li>Automation <span>Somfy Motor</span></li>
+          <li>Thermal Insulation <span id="hud-insulation">Low (Open System)</span></li>
+        </ul>
+      </div>
+
+      <div class="overlay-tag">🖱️ Mouse: Rotate & Zoom</div>
+    </div>
+  </section>
+
+  <!-- GENERAL FOOTER -->
+  <footer id="main-footer">
+    <div class="footer-content">
+      <div class="footer-col">
+        <div class="footer-logo-wrapper">
+          <img src="logo.jpg.jpg" alt="Eva Global" style="height: 25px;">
+        </div>
+        <p>Innovative and smart aluminum architectural systems that redefine the outdoors. Superior engineering and flawless aesthetics.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a onclick="showPage('products')">Our Systems</a>
+        <a onclick="showPage('configurator')">3D Configurator</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>📍 Çekmeköy, Istanbul, Turkey</p>
+        <p>📞 +90 (5XX) XXX XX XX</p>
+        <p>✉️ info@evaglobal.com.tr</p>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #1e293b; padding-top: 20px; font-size: 0.8rem;">
+        &copy; 2026 EVA GLOBAL INSAAT. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // --- ADVANCED PRODUCT DATABASE (Aligned with HUUN Global Specifications) ---
+    const productData = {
+      forte: {
+        title: "Forte Bioclimatic Pergola",
+        shortDesc: "Adjustable, remotely controlled mobile blades that enhance comfort and usability.",
+        longDesc: "HUUN Climatic Forte features adjustable, remotely controlled mobile blades that naturally regulate light, airflow, and temperature. When opened, these blades allow air to circulate freely and heat to escape, creating a cooler airflow beneath the structure. It prevents the space from turning into an oven during peak summer. The roof can be fully closed to provide complete protection against rain, creating an additional modular living space suitable for year-round use.",
+        vid: "https://cdn.coverr.co/videos/coverr-modern-building-with-glass-windows-4493/1080p.mp4",
+        img: "",
+        img1: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=600&q=80",
+        specs: { "Body Profile": "6063-T5 Solid Aluminum Alloy", "Motor System": "Somfy Linear Actuator", "Rotation Angle": "110 Degrees", "Water Drainage": "Integrated Hidden Gutter System", "Maximum Dimensions": "30 sqm Total Area Limit" },
+        time: "3-4 Weeks", wind: "120 km/h", windPct: "90%", snow: "200 kg/m²", snowPct: "85%", configTarget: "bioclimatic"
+      },
+      lamella: {
+        title: "Lamella Retractable Roof",
+        shortDesc: "Nature-Proof Comfort with Retractable Precision.",
+        longDesc: "Designed to adapt seamlessly to nature, the HUUN Lamella features retractable aluminum louvers. All blades, rails, and posts are made of solid aluminum alloy, resisting nature for ages without the risk of environmental damage. Unlike fabric pergolas, its color will not fade under the sun. Blades can be precisely opened for natural lighting and ventilation, or completely retracted to instantly adapt to changing weather conditions.",
+        img: "https://images.unsplash.com/photo-1600607688969-a5bfcd64bd15?auto=format&fit=crop&w=1600&q=80",
+        vid: "",
+        img1: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=600&q=80",
+        specs: { "Roof Movement": "Rotation and Fully Retractable", "Durability": "Exceptional resistance to weather & corrosion", "Motor System": "Somfy Tubular Motor", "Maximum Dimensions": "35 sqm Total Area Limit", "Insulation": "Perfect Nature Insulation" },
+        time: "4-5 Weeks", wind: "100 km/h", windPct: "75%", snow: "150 kg/m²", snowPct: "70%", configTarget: "rolling_roof"
+      },
+      glass: {
+        title: "Architectural Glazing Systems",
+        shortDesc: "Panorama sliding, Glass Balcony, and Guillotine systems for seamless integration.",
+        longDesc: "With Huun glass balcony and sliding systems, you can enjoy comfortable living spaces in all seasons. Advanced thermal insulation technology protects against heat, cold, wind, and water. Compatible with multiple single and double glazing thicknesses, offering fully customizable solutions. Features include 42mm stainless-steel wheels for smooth operation, and inward-opening panels for easy cleaning.",
+        vid: "https://cdn.coverr.co/videos/coverr-reflection-of-a-building-in-a-glass-window-4467/1080p.mp4",
+        img: "",
+        img1: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80",
+        specs: { "Available Systems": "Panorama, Shade On, Sliding Wall, Glass Balcony", "Glazing": "Single or Double Glazing Options", "Hardware": "42 mm Stainless-Steel Wheels", "Insulation": "Heat-Insulated Profiles & Wind Locks", "Aesthetics": "Aluminum Hinge Accessories" },
+        time: "3-4 Weeks", wind: "110 km/h", windPct: "80%", snow: "N/A (Facade)", snowPct: "0%", configTarget: "veranda"
+      },
+      rts116: {
+        title: "RTS116 Lift & Slide",
+        shortDesc: "Premium heavy-duty thermal sliding system for maximum insulation.",
+        longDesc: "The RTS116 is part of our thermal breaking architectural series, designed for large panoramic openings where maximum thermal and acoustic insulation is required. Its robust lift-and-slide mechanism allows effortless operation of heavy, oversized glass panels while providing superior weather resistance when closed.",
+        img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80",
+        vid: "",
+        img1: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80",
+        specs: { "Category": "Industrial Thermal Breaking", "Profile Depth": "116mm Frame Depth", "Thermal Barrier": "Polyamide Struts", "Max Panel Weight": "Up to 400kg", "Sealing": "EPDM Gaskets" },
+        time: "4-6 Weeks", wind: "130 km/h", windPct: "95%", snow: "N/A (Facade)", snowPct: "0%", configTarget: "veranda"
+      },
+      fd60: {
+        title: "FD60 Folding Glass Doors",
+        shortDesc: "Space-saving accordion style folding doors for seamless transitions.",
+        longDesc: "The FD60 folding glass door system is the ultimate solution for blending indoor and outdoor living spaces. Its accordion-style folding mechanism allows panels to stack neatly to the side, creating an unobstructed, wide-open passage while maintaining high thermal performance when closed.",
+        img: "https://images.unsplash.com/photo-1605276374104-162f154bf501?auto=format&fit=crop&w=1600&q=80",
+        vid: "",
+        img1: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80",
+        specs: { "Profile Depth": "60mm Frame Depth", "Operation": "Bottom/Top Rolling Options", "Max Panel Width": "1200mm", "Sealing": "Double Weatherstripping", "Configuration": "Inward or Outward Opening" },
+        time: "4-5 Weeks", wind: "100 km/h", windPct: "75%", snow: "N/A (Facade)", snowPct: "0%", configTarget: "veranda"
+      },
+      zip: {
+        title: "Zip Flex Screens",
+        shortDesc: "Wind-resistant, motorized screen fabrics with a zippered rail system.",
+        longDesc: "The Zip Flex system resists harsh winds without derailing thanks to its special zipper design. By using high-end micro-perforated screen fabrics, it prevents the inside from being seen from the outside while allowing you to comfortably view the outside. It perfectly performs the functions of a fly screen, sunshade, and windbreak.",
+        img: "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?auto=format&fit=crop&w=1600&q=80",
+        vid: "",
+        img1: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80",
+        img2: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=600&q=80",
+        specs: { "Series": "Zip Flex / Solar Flex", "Fabric Type": "Micro-Perforated Screen", "Zipper System": "Wind Lock (Fully Sealed)", "Motor System": "Somfy Blind Motor (Silent)", "UV Filter": "Up to 95% Harmful Ray Block" },
+        time: "2-3 Weeks", wind: "80 km/h", windPct: "60%", snow: "N/A", snowPct: "0%", configTarget: "bioclimatic"
+      }
+    };
+
+    let currentConfigTarget = 'bioclimatic';
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page-section').forEach(sec => { sec.classList.remove('active'); sec.style.display = 'none'; });
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const target = document.getElementById(pageId + '-section');
+      target.classList.add('active'); target.style.display = pageId === 'configurator' ? 'flex' : 'block';
+      const navLink = document.getElementById('nav-' + pageId);
+      if(navLink) navLink.classList.add('active');
+      document.getElementById('main-footer').style.display = pageId === 'configurator' ? 'none' : 'block';
+      if(pageId === 'configurator') { window.dispatchEvent(new Event('resize')); }
+    }
+
+    function openProductDetail(productId) {
+      const data = productData[productId];
+      
+      const heroImg = document.getElementById('detail-hero-img');
+      const heroVid = document.getElementById('detail-hero-vid');
+      
+      if(data.vid !== "") {
+          heroVid.src = data.vid;
+          heroVid.style.display = "block";
+          heroImg.style.display = "none";
+      } else {
+          heroImg.src = data.img;
+          heroImg.style.display = "block";
+          heroVid.style.display = "none";
+      }
+
+      document.getElementById('detail-img-1').src = data.img1;
+      document.getElementById('detail-img-2').src = data.img2;
+      document.getElementById('detail-title').innerText = data.title;
+      document.getElementById('detail-desc-short').innerText = data.shortDesc;
+      document.getElementById('detail-desc-long').innerText = data.longDesc;
+      document.getElementById('detail-time').innerText = data.time;
+      
+      document.getElementById('perf-wind-val').innerText = data.wind;
+      document.getElementById('perf-wind-bar').style.width = data.windPct;
+      document.getElementById('perf-snow-val').innerText = data.snow;
+      document.getElementById('perf-snow-bar').style.width = data.snowPct;
+
+      currentConfigTarget = data.configTarget;
+
+      const specsTable = document.getElementById('detail-specs-table');
+      specsTable.innerHTML = '';
+      for (const [key, value] of Object.entries(data.specs)) {
+        specsTable.innerHTML += `<tr><th>${key}</th><td>${value}</td></tr>`;
+      }
+      showPage('product-detail');
+      window.scrollTo(0,0);
+    }
+
+    function goToConfigurator() {
+      showPage('configurator');
+      const btn = document.getElementById('btn-' + currentConfigTarget);
+      if(btn) setRoofType(currentConfigTarget, btn);
+      else setRoofType('bioclimatic', document.getElementById('btn-bioclimatic'));
+    }
+
+    document.getElementById('main-footer').style.display = 'block';
+
+    // --- 3D SCENE & REALISTIC ENVIRONMENT ---
+    let currentRoof = 'bioclimatic';
+    let roofActionElements = []; let glassPanels = [], zipPanels = []; 
+    let houseWall;
+
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene(); scene.background = new THREE.Color(0xdce6ef);
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100); camera.position.set(10, 4, 12);
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.outputEncoding = THREE.sRGBEncoding; 
+    container.appendChild(renderer.domElement);
+    
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; controls.maxPolarAngle = Math.PI / 2 - 0.05; controls.target.set(0, 1.2, 0);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94a3b8, 0.6); scene.add(hemiLight);
+    const sun = new THREE.DirectionalLight(0xffffff, 1.4); 
+    sun.position.set(15, 25, 15); sun.castShadow = true; 
+    sun.shadow.mapSize.width = 2048; sun.shadow.mapSize.height = 2048;
+    sun.shadow.camera.near = 0.5; sun.shadow.camera.far = 50;
+    sun.shadow.camera.left = -10; sun.shadow.camera.right = 10; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -10;
+    scene.add(sun);
+
+    const systemGroup = new THREE.Group(); scene.add(systemGroup);
+
+    const floorGeo = new THREE.BoxGeometry(25, 0.2, 25);
+    const floorMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af, roughness: 0.9, metalness: 0 }); 
+    const floor = new THREE.Mesh(floorGeo, floorMat); floor.position.y = -0.1; floor.receiveShadow = true; scene.add(floor);
+
+    const wallGeo = new THREE.BoxGeometry(20, 10, 0.5);
+    const houseWallMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 1.0 }); 
+    houseWall = new THREE.Mesh(wallGeo, houseWallMat); houseWall.receiveShadow = true; scene.add(houseWall);
+
+    const POST_SIZE = 0.12; const BEAM_HEIGHT = 0.16; const BEAM_WIDTH = 0.09;
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, metalness: 0.2, roughness: 0.5 });
+    const louverMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, metalness: 0.25, roughness: 0.4 });
+    
+    const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.55, roughness: 0.05, metalness: 0.1, reflectivity: 0.9, transmission: 0.5, side: THREE.DoubleSide });
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.9, metalness: 0.0 });
+    const zipMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.85, metalness: 0.05, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+
+    function updateZipColor(hexColor) {
+        const baseColor = new THREE.Color(hexColor);
+        baseColor.lerp(new THREE.Color(0xffffff), 0.4);
+        zipMat.color.copy(baseColor);
+    }
+
+    const fabricMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.9, side: THREE.DoubleSide }); 
+
+    function createFramedGlass(pw, ph, fThick = 0.04) {
+        const grp = new THREE.Group();
+        const fMat = frameMat; const fDepth = 0.03; 
+        const glass = new THREE.Mesh(new THREE.BoxGeometry(pw, ph, 0.01), glassMat); grp.add(glass);
+        const tbGeo = new THREE.BoxGeometry(pw, fThick, fDepth);
+        const topF = new THREE.Mesh(tbGeo, fMat); topF.position.y = ph/2 - fThick/2; topF.castShadow = true;
+        const botF = new THREE.Mesh(tbGeo, fMat); botF.position.y = -ph/2 + fThick/2; botF.castShadow = true;
+        const lrGeo = new THREE.BoxGeometry(fThick, ph - fThick*2, fDepth);
+        const leftF = new THREE.Mesh(lrGeo, fMat); leftF.position.x = -pw/2 + fThick/2; leftF.castShadow = true;
+        const rightF = new THREE.Mesh(lrGeo, fMat); rightF.position.x = pw/2 - fThick/2; rightF.castShadow = true;
+        grp.add(topF); grp.add(botF); grp.add(leftF); grp.add(rightF);
+        return grp;
+    }
+
+    function buildSystem() {
+      roofActionElements = []; glassPanels = []; zipPanels = [];
+      while(systemGroup.children.length > 0) systemGroup.remove(systemGroup.children[0]);
+
+      const W = parseFloat(document.getElementById('width').value);
+      const D = parseFloat(document.getElementById('depth').value);
+      const FH = parseFloat(document.getElementById('frontHeight').value);
+      const BH = FH + 0.15; 
+
+      houseWall.position.set(0, 5, -D/2 - 0.25);
+
+      function createBox(w, h, d, x, y, z, rx=0, mat=frameMat) {
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+        mesh.position.set(x, y, z); mesh.rotation.x = rx; mesh.castShadow = true; mesh.receiveShadow = true;
+        systemGroup.add(mesh); return mesh;
+      }
+
+      createBox(POST_SIZE, FH, POST_SIZE, -W/2 + POST_SIZE/2, FH/2, D/2 - POST_SIZE/2);
+      createBox(POST_SIZE, FH, POST_SIZE,  W/2 - POST_SIZE/2, FH/2, D/2 - POST_SIZE/2);
+      createBox(POST_SIZE, BH, POST_SIZE, -W/2 + POST_SIZE/2, BH/2, -D/2 + POST_SIZE/2);
+      createBox(POST_SIZE, BH, POST_SIZE,  W/2 - POST_SIZE/2, BH/2, -D/2 + POST_SIZE/2);
+      createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, FH - BEAM_HEIGHT/2, D/2 - BEAM_WIDTH/2);
+      createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, BH - BEAM_HEIGHT/2, -D/2 + BEAM_WIDTH/2);
+
+      const slopeLength = Math.sqrt(Math.pow(D, 2) + Math.pow(BH - FH, 2));
+      const pitchAngle = Math.atan2(BH-FH, D);
+      const roofCenterY = (FH + BH)/2 - BEAM_HEIGHT/2 + 0.08;
+
+      createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength, -W/2 + BEAM_WIDTH/2, roofCenterY, 0, pitchAngle);
+      createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength, W/2 - BEAM_WIDTH/2, roofCenterY, 0, pitchAngle);
+
+      if (currentRoof === 'bioclimatic' || currentRoof === 'rolling_roof') {
+        const count = Math.ceil(D / 0.22); const step = D / count; 
+        for (let i = 0; i < count; i++) {
+          const louver = new THREE.Mesh(new THREE.BoxGeometry(W - (BEAM_WIDTH*2), 0.03, step + 0.005), louverMat);
+          const baseZ = -D/2 + step * (i + 0.5);
+          louver.position.set(0, roofCenterY, baseZ); louver.userData = { baseZ: baseZ, index: i }; 
+          louver.castShadow = true; systemGroup.add(louver); roofActionElements.push(louver);
+        }
+      } else if (currentRoof === 'pergola') {
+        const segments = 12; const segStep = D / segments;
+        for(let i = 0; i < segments; i++) {
+            const fGroup = new THREE.Group();
+            const fabric = new THREE.Mesh(new THREE.BoxGeometry(W - 0.15, 0.02, segStep * 0.95), fabricMat);
+            fGroup.add(fabric);
+            const baseZ = -D/2 + segStep * (i + 0.5); fGroup.position.set(0, roofCenterY, baseZ); fGroup.userData = { baseZ: baseZ, index: i };
+            systemGroup.add(fGroup); roofActionElements.push(fGroup);
+        }
+      } else if (currentRoof === 'veranda') {
+        const rG = new THREE.Mesh(new THREE.BoxGeometry(W-0.05, 0.02, slopeLength), glassMat);
+        rG.position.set(0, roofCenterY, 0); rG.rotation.x = pitchAngle; systemGroup.add(rG);
+        const rafterCount = Math.ceil(W / 0.85); const rafterSpacing = W / rafterCount;
+        for(let i=1; i<rafterCount; i++) {
+           const rafX = -W/2 + (i * rafterSpacing);
+           const rafter = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, slopeLength + 0.1), frameMat);
+           rafter.position.set(rafX, roofCenterY - 0.02, 0); rafter.rotation.x = pitchAngle; rafter.castShadow = true;
+           systemGroup.add(rafter);
+        }
+      }
+
+      const sides = [
+          { id: 'Front', w: W - (POST_SIZE*2), h: FH - BEAM_HEIGHT, posX: 0, posZ: D/2 - POST_SIZE/2, rotY: 0, xDir: 0, zDir: 1 },
+          { id: 'Back', w: W - (POST_SIZE*2), h: BH - BEAM_HEIGHT, posX: 0, posZ: -D/2 + POST_SIZE/2, rotY: 0, xDir: 0, zDir: -1 },
+          { id: 'Left', w: D - (POST_SIZE*2), h: (FH+BH)/2 - BEAM_HEIGHT, posX: -W/2 + POST_SIZE/2, posZ: 0, rotY: Math.PI/2, xDir: -1, zDir: 0 },
+          { id: 'Right', w: D - (POST_SIZE*2), h: (FH+BH)/2 - BEAM_HEIGHT, posX: W/2 - POST_SIZE/2, posZ: 0, rotY: Math.PI/2, xDir: 1, zDir: 0 }
+      ];
+
+      let hasGlass = false; let hasZip = false; let closedSides = 0;
+      let hasInsulatedSystem = false;
+
+      sides.forEach(side => {
+          const type = document.getElementById('glazing' + side.id).value;
+          if(type !== 'none') closedSides++;
+
+          if(type === 'wall') {
+              const wall = new THREE.Mesh(new THREE.BoxGeometry(side.w, side.h, 0.08), wallMat);
+              wall.position.set(side.posX, side.h/2, side.posZ); wall.rotation.y = side.rotY; wall.castShadow = true; wall.receiveShadow = true; systemGroup.add(wall);
+          } else if (type !== 'none') {
+              hasGlass = true;
+              
+              let panelCount = 3;
+              if (type === 'fd60') panelCount = 4;
+              if (type === 'rts116') panelCount = 2;
+              
+              if (type === 'rts116' || type === 'rwt64') hasInsulatedSystem = true;
+
+              for(let i=0; i<panelCount; i++) {
+                  const pGroup = new THREE.Group();
+                  
+                  let pw = side.w / panelCount;
+                  let ph = side.h;
+                  let fThick = 0.04;
+
+                  if (type === 'guillotine') {
+                      pw = side.w; ph = side.h / 3;
+                  } else if (type === 'sliding') {
+                      pw = side.w/3 + 0.05;
+                  } else if (type === 'rts116') {
+                      pw = side.w/2 + 0.08; fThick = 0.06;
+                  } else if (type === 'rwt55') {
+                      fThick = 0.055;
+                  } else if (type === 'rwt64') {
+                      fThick = 0.064;
+                  }
+
+                  const framedGlass = createFramedGlass(pw, ph, fThick);
+                  pGroup.add(framedGlass); 
+                  
+                  if (type === 'fd60') {
+                      let closedLocalX = -side.w/2 + pw/2 + (i * pw);
+                      let closedLocalZ = 0;
+                      let closedRotY = side.rotY;
+
+                      let openLocalX = -side.w/2 + (pw * 0.1) + (i * pw * 0.15);
+                      let openLocalZ = (i % 2 === 0) ? 0.3 : -0.3;
+                      let openRotY = side.rotY + ((i % 2 === 0) ? 1.2 : -1.2);
+                      
+                      pGroup.userData = { 
+                          type: 'fd60', 
+                          closedX: side.posX + (side.rotY === 0 ? closedLocalX : closedLocalZ * side.xDir),
+                          closedZ: side.posZ + (side.rotY === 0 ? closedLocalZ * side.zDir : closedLocalX),
+                          closedRotY,
+                          openX: side.posX + (side.rotY === 0 ? openLocalX : openLocalZ * side.xDir),
+                          openZ: side.posZ + (side.rotY === 0 ? openLocalZ * side.zDir : openLocalX),
+                          openRotY
+                      };
+                      pGroup.position.set(pGroup.userData.closedX, side.h/2, pGroup.userData.closedZ);
+                      pGroup.rotation.y = closedRotY;
+                  } else {
+                      pGroup.rotation.y = side.rotY;
+                      
+                      if(type === 'guillotine') {
+                          pGroup.userData = { type: 'guillotine', isFixed: (i===0), closedY: ph/2 + (i * ph), openY: ph/2 + (i * 0.05) };
+                          let localZ = (1 - i) * 0.04; 
+                          let finalX = side.posX + (side.rotY !== 0 ? localZ * side.xDir : 0);
+                          let finalZ = side.posZ + (side.rotY === 0 ? localZ * side.zDir : 0);
+                          pGroup.position.set(finalX, pGroup.userData.closedY, finalZ);
+                      } else if (type === 'sliding' || type === 'rts116') {
+                          let overlap = (type === 'rts116') ? 0.08 : 0.05;
+                          let effWidth = side.w / panelCount;
+                          let localX = -side.w/2 + pw/2 + (i * effWidth) - (i>0 ? overlap/2 : 0); 
+                          let openLocalX = -side.w/2 + pw/2 + (i * 0.05);
+                          let localZ = (1 - i) * (type === 'rts116' ? 0.06 : 0.04);
+                          
+                          let closedX = side.posX + (side.rotY === 0 ? localX : localZ * side.xDir);
+                          let closedZ = side.posZ + (side.rotY === 0 ? localZ * side.zDir : localX);
+                          let openX = side.posX + (side.rotY === 0 ? openLocalX : localZ * side.xDir);
+                          let openZ = side.posZ + (side.rotY === 0 ? localZ * side.zDir : openLocalX);
+                          
+                          pGroup.position.set(closedX, side.h/2, closedZ);
+                          pGroup.userData = { type: type, isFixed: (i===0), closedX, closedZ, openX, openZ };
+                      } else if (type === 'rwt55' || type === 'rwt64') {
+                          let localX = -side.w/2 + pw/2 + (i * pw); 
+                          let finalX = side.posX + (side.rotY === 0 ? localX : 0);
+                          let finalZ = side.posZ + (side.rotY === 0 ? 0 : localX);
+                          pGroup.position.set(finalX, side.h/2, finalZ);
+                      }
+                  }
+                  
+                  systemGroup.add(pGroup); 
+                  if (type === 'guillotine' || type === 'sliding' || type === 'rts116' || type === 'fd60') {
+                      glassPanels.push(pGroup);
+                  }
+              }
+          }
+
+          if (document.getElementById('zip' + side.id).checked) {
+              hasZip = true;
+              const offsetOut = 0.09; 
+              const casX = side.posX + (side.xDir * offsetOut); 
+              const casZ = side.posZ + (side.zDir * offsetOut);
+              
+              const cassette = new THREE.Mesh(new THREE.BoxGeometry(side.w + 0.06, 0.1, 0.1), frameMat);
+              cassette.position.set(casX, side.h + 0.05, casZ); 
+              cassette.rotation.y = side.rotY; 
+              cassette.castShadow = true; 
+              systemGroup.add(cassette);
+              
+              const zipGeo = new THREE.BoxGeometry(side.w, side.h, 0.005); 
+              const fabric = new THREE.Mesh(zipGeo, zipMat);
+              fabric.rotation.y = side.rotY; 
+              fabric.castShadow = true; 
+              fabric.userData = { fullHeight: side.h, topAnchorY: side.h };
+              fabric.position.set(casX, side.h / 2, casZ); 
+              systemGroup.add(fabric); zipPanels.push(fabric);
+          }
+      });
+
+      document.getElementById('glassControls').style.display = hasGlass ? 'block' : 'none';
+      document.getElementById('zipControls').style.display = hasZip ? 'block' : 'none';
+      
+      updateArea(W, D); updateTechHUD(currentRoof, closedSides, hasInsulatedSystem);
+      applyGlassOpenness(); applyZipOpenness(); applyRoofMechanics();
+    }
+
+    function updateTechHUD(roof, closedSides, hasInsulatedSystem) {
+        const hudSnow = document.getElementById('hud-snow-val');
+        const hudWind = document.getElementById('hud-wind-val');
+        const hudIns = document.getElementById('hud-insulation');
+        const snowBar = document.getElementById('hud-snow-bar');
+        const windBar = document.getElementById('hud-wind-bar');
+
+        if(roof === 'bioclimatic') { 
+            hudSnow.innerText = '200 kg/m²'; snowBar.style.width = '90%';
+            hudWind.innerText = '120 km/h'; windBar.style.width = '95%';
+        } else if(roof === 'rolling_roof') { 
+            hudSnow.innerText = '150 kg/m²'; snowBar.style.width = '70%';
+            hudWind.innerText = '100 km/h'; windBar.style.width = '80%';
+        } else if(roof === 'pergola') { 
+            hudSnow.innerText = 'N/A'; snowBar.style.width = '0%';
+            hudWind.innerText = '80 km/h'; windBar.style.width = '60%';
+        } else if(roof === 'veranda') { 
+            hudSnow.innerText = '250 kg/m²'; snowBar.style.width = '100%';
+            hudWind.innerText = '130 km/h'; windBar.style.width = '100%';
+        }
+
+        if(closedSides === 0) hudIns.innerText = 'Low (Open)';
+        else if(hasInsulatedSystem) hudIns.innerText = 'Premium Thermal';
+        else if(closedSides > 0 && closedSides < 4) hudIns.innerText = 'Medium (Semi-Closed)';
+        else hudIns.innerText = 'High (Standard Enclosed)';
+    }
+
+    function applyRoofMechanics() {
+        const val = parseFloat(document.getElementById('roofActionVal').value); const ratio = val / 100; 
+        if (currentRoof === 'bioclimatic') { document.getElementById('roofSliderVal').innerText = `${Math.round(val * 1.1)}°`; roofActionElements.forEach(l => l.rotation.x = (val * 1.1 * Math.PI) / 180); } 
+        else if (currentRoof === 'rolling_roof') {
+            document.getElementById('roofSliderVal').innerText = `${val}% Retracted`; const D = parseFloat(document.getElementById('depth').value); const stackSpacing = 0.06;
+            roofActionElements.forEach((louver, idx) => {
+                louver.rotation.x = ratio * (Math.PI / 3); 
+                const closedZ = louver.userData.baseZ; const stackedZ = (-D/2 + POST_SIZE/2) + (idx * stackSpacing);
+                louver.position.z = closedZ + (stackedZ - closedZ) * ratio;
+            });
+        }
+        else if (currentRoof === 'pergola') {
+            document.getElementById('roofSliderVal').innerText = `${val}% Retracted`; const D = parseFloat(document.getElementById('depth').value); const stackSpacing = 0.05;
+            roofActionElements.forEach((segment, idx) => {
+                const closedZ = segment.userData.baseZ; const stackedZ = (-D/2 + POST_SIZE/2) + (idx * stackSpacing);
+                segment.position.z = closedZ + (stackedZ - closedZ) * ratio; segment.scale.z = Math.max(0.2, 1.0 - (ratio * 0.8)); 
+            });
+        }
+    }
+    document.getElementById('roofActionVal').addEventListener('input', applyRoofMechanics);
+
+    function applyGlassOpenness() {
+        const ratio = parseFloat(document.getElementById('glassOpenness').value) / 100; document.getElementById('glassVal').innerText = ratio === 0 ? 'Closed' : (ratio === 1 ? 'Open' : `${Math.round(ratio*100)}%`);
+        glassPanels.forEach((p) => { 
+            if(p.userData.type === 'guillotine' && !p.userData.isFixed) { 
+                p.position.y = p.userData.closedY + (p.userData.openY - p.userData.closedY) * ratio; 
+            } else if ((p.userData.type === 'sliding' || p.userData.type === 'rts116') && !p.userData.isFixed) {
+                p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio;
+                p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio;
+            } else if (p.userData.type === 'fd60') {
+                p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio;
+                p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio;
+                p.rotation.y = p.userData.closedRotY + (p.userData.openRotY - p.userData.closedRotY) * ratio;
+            }
+        });
+    }
+    
+    function applyZipOpenness() {
+        const ratio = parseFloat(document.getElementById('zipOpenness').value) / 100; 
+        document.getElementById('zipVal').innerText = ratio === 0 ? 'Down' : (ratio === 1 ? 'Open' : `${Math.round(ratio*100)}%`);
+        zipPanels.forEach((fabric) => { 
+            const currentScaleY = Math.max(0.01, 1.0 - ratio);
+            fabric.scale.y = currentScaleY;
+            fabric.position.y = fabric.userData.topAnchorY - (fabric.userData.fullHeight * currentScaleY) / 2;
+        });
+    }
+
+    document.getElementById('glassOpenness').addEventListener('input', applyGlassOpenness); document.getElementById('zipOpenness').addEventListener('input', applyZipOpenness);
+
+    function setRoofType(type, btn) {
+      currentRoof = type; document.querySelectorAll('.roof-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
+      const ctrl = document.getElementById('roofControls'); const label = document.getElementById('roofSliderLabel'); document.getElementById('roofActionVal').value = 0; 
+      if (type === 'bioclimatic') { ctrl.style.display = 'block'; label.innerText = 'Louver Angle (Somfy):'; }
+      else if (type === 'rolling_roof') { ctrl.style.display = 'block'; label.innerText = 'Retract Roof (Somfy):'; }
+      else if (type === 'pergola') { ctrl.style.display = 'block'; label.innerText = 'Retract Awning (Somfy):'; }
+      else { ctrl.style.display = 'none'; } buildSystem();
+    }
+    
+    document.getElementById('profileColor').addEventListener('input', (e) => { 
+        const hex = parseInt(e.target.value.replace('#', '0x')); 
+        frameMat.color.setHex(hex); 
+        louverMat.color.setHex(hex);
+        updateZipColor(hex);
+    });
+
+    ['width', 'depth', 'frontHeight'].forEach(id => document.getElementById(id).addEventListener('change', buildSystem));
+    document.querySelectorAll('.side-select').forEach(el => el.addEventListener('change', buildSystem)); document.querySelectorAll('.zip-check').forEach(el => el.addEventListener('change', buildSystem));
+
+    function updateArea(w, d) {
+      const area = w * d; 
+      document.getElementById('areaDisplay').innerText = `${area.toFixed(2)} m²`; 
+    }
+
+    function sendWhatsAppOffer() {
+        const w = document.getElementById('width').value;
+        const d = document.getElementById('depth').value;
+        const area = (w * d).toFixed(2);
+        const msg = `*Eva Global 3D Project Inquiry*\n\n📐 *Dimensions:* ${w}x${d}m (${area}m²)\n🏠 *Roof:* ${currentRoof}\n\nI would like to get detailed information about this configuration.`;
+        window.open(`https://wa.me/905XXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    window.addEventListener('resize', () => { if(container.clientWidth > 0) { camera.aspect = container.clientWidth / container.clientHeight; camera.updateProjectionMatrix(); renderer.setSize(container.clientWidth, container.clientHeight); } });
+    function renderLoop() { requestAnimationFrame(renderLoop); controls.update(); renderer.render(scene, camera); }
+
+    updateZipColor(parseInt(document.getElementById('profileColor').value.replace('#', '0x')));
+    buildSystem(); 
+    renderLoop(); 
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+  </script>
+</body>
+</html>
