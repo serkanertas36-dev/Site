@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>DörtMevsimBahçem | Premium Kış Bahçesi ve Veranda Sistemleri</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -10,17 +10,18 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-    body { background: #0b0f19; color: #f1f5f9; overflow-x: hidden; scroll-behavior: smooth; }
+    body { background: #f8fafc; color: #1e293b; overflow-x: hidden; scroll-behavior: smooth; }
 
     /* --- HEADER --- */
-    header { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: 0.3s; }
+    header { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e8f0; height: 85px; display: flex; justify-content: space-between; align-items: center; padding: 0 5%; position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: 0.3s; }
     .header-logo { padding: 6px 14px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; }
     .header-logo img { height: 42px; width: auto; display: block; object-fit: contain; }
     .header-nav { display: flex; gap: 30px; }
     .header-nav a { color: #475569; text-decoration: none; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: 0.3s; letter-spacing: 0.5px; text-transform: uppercase; }
     .header-nav a:hover, .header-nav a.active { color: #0284c7; }
-    .header-contact { background: #0284c7; color: #ffffff; padding: 12px 28px; border-radius: 30px; font-weight: 700; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+    .header-contact { background: #0284c7; color: #ffffff; padding: 12px 28px; border-radius: 30px; font-weight: 700; text-decoration: none; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; display: block; }
     .header-contact:hover { background: #0369a1; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3); }
+    .mobile-menu-btn { display: none; font-size: 2rem; background: none; border: none; color: #0f172a; cursor: pointer; }
 
     /* --- PAGE STRUCTURE --- */
     .page-section { display: none; min-height: 100vh; padding-top: 85px; }
@@ -62,122 +63,108 @@
     .product-info p { color: #64748b; font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
     .tech-badges { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
     .tech-badge { background: rgba(2, 132, 199, 0.1); color: #0284c7; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(2, 132, 199, 0.2); }
-    .product-link { display: inline-flex; align-items: center; gap: 8px; color: #0f172a; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; transition: 0.2s; }
-    .product-card:hover .product-link { color: #0284c7; }
 
-    /* --- PRODUCT DETAIL & MAINTENANCE PAGE --- */
+    /* --- PRODUCT DETAIL PAGE --- */
     #product-detail-section, #maintenance-section { background: #f8fafc; padding-top: 85px; }
     .detail-hero { width: 100%; height: 60vh; position: relative; display: flex; align-items: center; padding: 0 10%; overflow: hidden; }
     .detail-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.55; }
     .detail-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(248, 250, 252, 1) 30%, rgba(248, 250, 252, 0.3)); z-index: 2; }
     .detail-hero-content { position: relative; z-index: 3; max-width: 800px; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #0284c7; text-decoration: none; font-weight: 600; font-size: 0.9rem; margin-bottom: 25px; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
-    .back-btn:hover { color: #0f172a; }
     .detail-hero-content h1 { font-size: 3.5rem; color: #0f172a; font-weight: 800; margin-bottom: 20px; line-height: 1.1; }
     .detail-hero-content p { font-size: 1.2rem; color: #334155; max-width: 600px; line-height: 1.6; font-weight: 400; }
-
     .detail-body { max-width: 1400px; margin: 0 auto; padding: 70px 5%; display: grid; grid-template-columns: 2fr 1fr; gap: 50px; }
-    .tech-overview h2 { font-size: 2rem; color: #0f172a; margin-bottom: 20px; font-weight: 800; }
-    .tech-overview p { color: #475569; line-height: 1.8; margin-bottom: 40px; font-size: 1.05rem; }
-    
     .tech-visual-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 50px; }
     .tech-visual-card { background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); }
     .tech-visual-card img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #e2e8f0; }
     .tech-visual-card div { padding: 20px; }
     .tech-visual-card h4 { color: #0284c7; font-size: 1.15rem; margin-bottom: 8px; }
-    .tech-visual-card p { color: #64748b; font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; }
-
-    .tech-table-container { margin-bottom: 40px; }
-    .tech-table-container h3 { font-size: 1.4rem; color: #0f172a; margin-bottom: 20px; }
-    .tech-table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.03); }
+    .tech-table { width: 100%; border-collapse: collapse; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; }
     .tech-table th, .tech-table td { padding: 16px 22px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-    .tech-table th { background: rgba(2, 132, 199, 0.05); color: #0284c7; font-weight: 600; width: 40%; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
-    .tech-table td { color: #334155; font-size: 0.95rem; font-weight: 500; }
-    .tech-table tr:last-child th, .tech-table tr:last-child td { border-bottom: none; }
-
-    .action-panel { position: sticky; top: 110px; }
+    .tech-table th { background: rgba(2, 132, 199, 0.05); color: #0284c7; font-weight: 600; width: 40%; }
     .offer-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 35px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08); }
-    .offer-card h3 { color: #0f172a; font-size: 1.4rem; margin-bottom: 25px; font-weight: 800; }
-    
-    .perf-bar-group { margin-bottom: 18px; }
-    .perf-label { display: flex; justify-content: space-between; color: #64748b; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; }
-    .perf-label span.val { color: #0f172a; }
-    .perf-track { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
-    .perf-fill { height: 100%; background: #0284c7; border-radius: 3px; }
-    
     .offer-list { list-style: none; margin: 30px 0; }
-    .offer-list li { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed #e2e8f0; color: #475569; font-size: 0.95rem; }
-    .offer-list li:last-child { border-bottom: none; }
-    .offer-list li span { font-weight: 700; color: #0f172a; }
-    .detail-action-btn { background: #0284c7; color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
-    .detail-action-btn:hover { background: #0369a1; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(2, 132, 199, 0.3); }
+    .offer-list li { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dashed #e2e8f0; font-size: 0.95rem; }
+    .detail-action-btn { background: #0284c7; color: white; border: none; padding: 18px; width: 100%; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; }
 
     /* --- 3D CONFIGURATOR --- */
-    #configurator-section { height: 100vh; padding-top: 85px; overflow: hidden; }
+    #configurator-section { height: calc(100vh - 85px); padding-top: 85px; overflow: hidden; display: flex; flex-direction: row; }
     #configurator-section.active { display: flex; }
     #sidebar { width: 460px; background: #ffffff; border-right: 1px solid #e2e8f0; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; z-index: 10; box-shadow: 10px 0 30px rgba(0,0,0,0.03); }
-    #sidebar::-webkit-scrollbar { width: 6px; } 
-    #sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    
+    #sidebar::-webkit-scrollbar { width: 6px; } #sidebar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     h2.sidebar-title { font-size: 1.35rem; color: #0f172a; font-weight: 800; margin-bottom: 4px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-    
-    input[type=number], select { background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 10px 12px; border-radius: 8px; font-size: 0.9rem; transition: 0.2s; font-weight: 500; }
-    input:focus, select:focus { outline: none; border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
-    
+    label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
+    input[type=number], select { background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 12px; border-radius: 8px; font-size: 0.9rem; width: 100%; }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .roof-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .roof-btn { background: #f8fafc; border: 1px solid #cbd5e1; color: #475569; padding: 10px; border-radius: 8px; font-weight: 600; font-size: 0.82rem; cursor: pointer; transition: 0.2s; }
-    .roof-btn.active { background: #0284c7; color: #ffffff; border-color: #0284c7; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3); }
-
+    .roof-btn { background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    .roof-btn.active { background: #0284c7; color: #ffffff; border-color: #0284c7; }
     .module-box { background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 12px; }
-    .module-title { font-size: 0.78rem; color: #0284c7; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .module-title { font-size: 0.78rem; color: #0284c7; font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; }
     .facade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #334155; cursor: pointer; font-weight: 500; }
-    .checkbox-label input[type="checkbox"] { width: 16px; height: 16px; accent-color: #0284c7; cursor: pointer; }
-
+    .checkbox-label { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 500; cursor: pointer;}
     .slider-container { background: #f8fafc; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; }
-    .slider-header { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px; color: #334155; font-weight: 600; }
-    input[type=range] { width: 100%; accent-color: #0284c7; cursor: pointer; height: 6px; }
-
-    .summary-card { background: linear-gradient(135deg, #0284c7, #0369a1); border-radius: 12px; padding: 16px; text-align: center; color: white; box-shadow: 0 10px 20px rgba(2, 132, 199, 0.2); }
+    .slider-header { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; }
+    input[type=range] { width: 100%; accent-color: #0284c7; }
+    .summary-card { background: linear-gradient(135deg, #0284c7, #0369a1); border-radius: 12px; padding: 16px; text-align: center; color: white; }
     .summary-card .area-val { font-size: 1.6rem; font-weight: 800; margin: 4px 0; }
-    .summary-card .area-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-    .btn-action { background: #10b981; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); transition: 0.2s; }
-    .btn-action:hover { background: #059669; }
+    .btn-action { background: #10b981; color: white; border: none; padding: 15px; border-radius: 12px; font-size: 1rem; font-weight: 800; cursor: pointer; }
 
-    /* --- 3D CAD SCENE --- */
-    #canvas-container { flex: 1; position: relative; background: #e2e8f0; }
-    
+    #canvas-container { flex: 1; position: relative; background: #e2e8f0; height: 100%; }
     .tech-hud { position: absolute; top: 25px; left: 25px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border: 1px solid #cbd5e1; padding: 22px; border-radius: 16px; width: 300px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); pointer-events: none; z-index: 5; }
-    .tech-hud h4 { color: #0f172a; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-    .tech-hud h4::before { content: ''; display: inline-block; width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; animation: pulse 2s infinite; }
-    
-    .hud-stat { margin-bottom: 14px; }
-    .hud-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: #64748b; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.5px; }
-    .hud-label span.val { color: #0f172a; }
-    .hud-bar-bg { width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden; }
-    .hud-bar-fill { height: 100%; background: #0284c7; border-radius: 2px; transition: 0.5s ease; }
-    
-    .hud-text-list { list-style: none; margin-top: 16px; border-top: 1px solid #e2e8f0; padding-top: 12px; }
-    .hud-text-list li { display: flex; justify-content: space-between; font-size: 0.8rem; color: #475569; margin-bottom: 6px; }
-    .hud-text-list li span { color: #0284c7; font-weight: 600; }
+    .overlay-tag { position: absolute; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1; padding: 10px 18px; border-radius: 30px; font-size: 0.82rem; font-weight: 600; z-index: 5;}
 
-    @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.5; } }
+    /* --- RESPONSIVE / MOBILE DESIGN --- */
+    @media (max-width: 1024px) {
+        .detail-body { grid-template-columns: 1fr; }
+        .hero-content h1 { font-size: 3.5rem; }
+    }
 
-    .overlay-tag { position: absolute; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border: 1px solid #cbd5e1; color: #0f172a; padding: 10px 18px; border-radius: 30px; font-size: 0.82rem; pointer-events: none; box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+    @media (max-width: 768px) {
+        header { padding: 0 20px; height: 70px; }
+        .page-section { padding-top: 70px; }
+        .header-logo img { height: 35px; }
+        
+        .header-nav { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #ffffff; flex-direction: column; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); gap: 15px; border-top: 1px solid #e2e8f0; }
+        .header-nav.active { display: flex; }
+        .header-contact { display: none; }
+        .mobile-menu-btn { display: block; }
+
+        .hero-content h1 { font-size: 2.8rem; }
+        .hero-content p { font-size: 1.1rem; }
+        #home-section { padding-left: 5%; padding-right: 5%; }
+        
+        .tech-stats-bar { position: relative; background: #ffffff; flex-wrap: wrap; justify-content: flex-start; gap: 15px; padding: 20px 5%; }
+        .stat-item { width: 45%; }
+        .stat-item div h4 { font-size: 0.9rem; }
+        
+        .products-grid { grid-template-columns: 1fr; }
+        .section-header h2 { font-size: 2.2rem; }
+        
+        .detail-hero h1 { font-size: 2.4rem; }
+        .detail-hero p { font-size: 1rem; }
+        .tech-visual-grid { grid-template-columns: 1fr; }
+        
+        /* 3D Configurator Mobile Layout */
+        #configurator-section { flex-direction: column; height: calc(100vh - 70px); overflow: hidden; }
+        #canvas-container { height: 45vh; width: 100%; order: 1; flex: none; }
+        #sidebar { height: 55vh; width: 100%; order: 2; border-right: none; border-top: 1px solid #e2e8f0; padding: 15px; }
+        
+        .tech-hud { display: none; } /* HUD mobilde gizlenir */
+        .overlay-tag { font-size: 0.65rem; padding: 6px 10px; bottom: 10px; right: 10px; }
+        
+        .facade-grid { grid-template-columns: 1fr; }
+        .grid-2 { grid-template-columns: 1fr; }
+        .roof-selector { grid-template-columns: 1fr 1fr; }
+    }
   </style>
   <script>
     function handleImgError(img, baseName, altName) {
       const step = parseInt(img.dataset.retry || "0");
       const candidates = [
-        baseName + ".jpg.jpg",
-        baseName + ".jpeg",
-        baseName + ".png",
-        baseName.toUpperCase() + ".JPG",
-        baseName + ".jgp" // Yazım hatası telafisi
+        baseName + ".jpg.jpg", baseName + ".jpeg", baseName + ".png", baseName.toUpperCase() + ".JPG", baseName + ".jgp"
       ];
       if (altName) {
         candidates.push(altName + ".jpg", altName + ".jpg.jpg", altName + ".png", altName + ".jpeg", altName + ".jgp");
@@ -186,6 +173,10 @@
         img.dataset.retry = step + 1;
         img.src = candidates[step];
       }
+    }
+
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('active');
     }
   </script>
 </head>
@@ -196,13 +187,16 @@
     <div class="header-logo" onclick="showPage('home')">
       <img src="logo.jpg" onerror="handleImgError(this, 'logo')" alt="DörtMevsimBahçem" />
     </div>
-    <nav class="header-nav">
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <a href="https://wa.me/905389808755" target="_blank" class="header-contact">İletişime Geç</a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </div>
+    <nav class="header-nav" id="mobileNav">
       <a onclick="showPage('home')" class="nav-link active" id="nav-home">Ana Sayfa</a>
       <a onclick="showPage('products')" class="nav-link" id="nav-products">Sistemler ve Ürünler</a>
       <a onclick="showPage('maintenance')" class="nav-link" id="nav-maintenance">Tamir & Bakım</a>
       <a onclick="showPage('configurator')" class="nav-link" id="nav-configurator">3D Tasarım Simülatörü</a>
     </nav>
-    <a href="https://wa.me/905389808755" target="_blank" class="header-contact">İletişime Geç</a>
   </header>
 
   <!-- 1. HOME -->
@@ -211,7 +205,6 @@
       <source src="timeline1.mp4" type="video/mp4">
       <source src="Timeline1.mp4" type="video/mp4">
       <source src="timeline1.mp4.mp4" type="video/mp4">
-      <source src="TIMELINE1.MP4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
 
@@ -221,10 +214,10 @@
       <a onclick="showPage('configurator')" class="hero-btn">3D Simülatörü Başlat &rarr;</a>
     </div>
     <div class="tech-stats-bar">
-      <div class="stat-item"><div class="icon">🛡️</div><div><h4>6063-T5</h4><p>Havacılık Sınıfı Alüminyum</p></div></div>
+      <div class="stat-item"><div class="icon">🛡️</div><div><h4>6063-T5</h4><p>Havacılık Alüminyum</p></div></div>
       <div class="stat-item"><div class="icon">⚙️</div><div><h4>Somfy</h4><p>Sessiz Otomasyon</p></div></div>
-      <div class="stat-item"><div class="icon">❄️</div><div><h4>200 kg/m²</h4><p>Kar Yükü Kapasitesi</p></div></div>
-      <div class="stat-item"><div class="icon">💨</div><div><h4>120 km/h</h4><p>Rüzgar Testi Onaylı</p></div></div>
+      <div class="stat-item"><div class="icon">❄️</div><div><h4>200 kg/m²</h4><p>Kar Kapasitesi</p></div></div>
+      <div class="stat-item"><div class="icon">💨</div><div><h4>120 km/h</h4><p>Rüzgar Direnci</p></div></div>
     </div>
   </section>
 
@@ -234,89 +227,68 @@
       <h2>Mühendislik Harikası Sistemler</h2>
       <p>Estetik tasarımı üstün mühendislik ve Somfy akıllı ev teknolojileriyle birleştiren dış mekan çözümleri.</p>
     </div>
-    
     <div class="products-grid">
       <div class="product-card" onclick="openProductDetail('forte')">
-        <div class="product-img">
-          <img src="forte.jpg" onerror="handleImgError(this, 'forte', 'bioklimatik')" alt="Forte Bioklimatik Pergola">
-        </div>
+        <div class="product-img"><img src="forte.jpg" onerror="handleImgError(this, 'forte', 'bioklimatik')" alt="Forte Bioklimatik"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">110° Dönüş</span><span class="tech-badge">Su Tahliyesi</span></div>
           <h3>Forte Bioklimatik Pergola</h3>
-          <p>Işığı, hava akışını ve sıcaklığı doğal olarak düzenleyen, uzaktan kumandalı hareketli paneller.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <p>Işığı, hava akışını ve sıcaklığı doğal olarak düzenleyen hareketli paneller.</p>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-
       <div class="product-card" onclick="openProductDetail('lamella')">
-        <div class="product-img">
-          <img src="lamella.jpg" onerror="handleImgError(this, 'lamella', 'rolling')" alt="Lamella Açılır Kapanır Çatı">
-        </div>
+        <div class="product-img"><img src="lamella.jpg" onerror="handleImgError(this, 'lamella', 'rolling')" alt="Lamella Çatı"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Tam Açılır</span><span class="tech-badge">Masif Alüminyum</span></div>
           <h3>Lamella Açılır Kapanır Çatı</h3>
-          <p>Doğaya dayanıklı konfor ve kesintisiz gökyüzü manzarası sunan tam açılır panel tasarımı.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <p>Doğaya dayanıklı konfor ve kesintisiz gökyüzü manzarası sunan tam açılır tasarım.</p>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-
       <div class="product-card" onclick="openProductDetail('guillotine')">
-        <div class="product-img">
-          <img src="giyotin1.jpg" onerror="handleImgError(this, 'giyotin1', 'giyotin')" alt="Giyotin Cam">
-        </div>
+        <div class="product-img"><img src="giyotin1.jpg" onerror="handleImgError(this, 'giyotin1', 'giyotin')" alt="Giyotin Cam"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Motorlu</span><span class="tech-badge">Isıcamlı</span></div>
           <h3>Giyotin Cam Sistemleri</h3>
           <p>Uzaktan kumandalı, hareketli küpeşte ve dikey cam rüzgarlık sistemi.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-
       <div class="product-card" onclick="openProductDetail('sliding')">
-        <div class="product-img">
-          <img src="sliding.jpg" onerror="handleImgError(this, 'sliding', 'siliding')" alt="Sürme Cam">
-        </div>
+        <div class="product-img"><img src="sliding.jpg" onerror="handleImgError(this, 'sliding', 'siliding')" alt="Sürme Cam"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Eşiksiz</span><span class="tech-badge">Geniş Açıklık</span></div>
           <h3>Sürme Cam Sistemleri</h3>
           <p>Estetik ve kesintisiz manzara sunan, kolay kullanımlı standart sürme sistemleri.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-
       <div class="product-card" onclick="openProductDetail('rts116')">
-        <div class="product-img">
-          <img src="rts116.jpg" onerror="handleImgError(this, 'rts116', 'kaldirsir')" alt="RTS116 Kaldır Sür">
-        </div>
+        <div class="product-img"><img src="rts116.jpg" onerror="handleImgError(this, 'rts116', 'kaldirsir')" alt="RTS116 Kaldır Sür"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Premium Yalıtım</span><span class="tech-badge">Hebe Schiebe</span></div>
           <h3>RTS116 Kaldır Sür Sistem</h3>
           <p>Yüksek ısı yalıtımı gerektiren geniş cepheler için ağır yük kapasiteli sürme sistemi.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-      
       <div class="product-card" onclick="openProductDetail('cambalkon')">
-        <div class="product-img">
-          <img src="cam1.jpg" onerror="handleImgError(this, 'cam1', 'cam')" alt="Katlanır Cam Balkon">
-        </div>
+        <div class="product-img"><img src="cam1.jpg" onerror="handleImgError(this, 'cam1', 'cam')" alt="Katlanır Cam Balkon"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Tam Açılır</span><span class="tech-badge">Panoramik</span></div>
           <h3>Katlanır Cam Balkon</h3>
           <p>Manzaranızı bölmeyen, tamamen katlanarak kenara toplanabilen esnek cam sistemi.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
-
       <div class="product-card" onclick="openProductDetail('zip')">
-        <div class="product-img">
-          <img src="zip1.jpg" onerror="handleImgError(this, 'zip1', 'zip')" alt="Zip Flex Perdeler">
-        </div>
+        <div class="product-img"><img src="zip1.jpg" onerror="handleImgError(this, 'zip1', 'zip')" alt="Zip Flex Perdeler"></div>
         <div class="product-info">
           <div class="tech-badges"><span class="tech-badge">Mikro Delikli</span><span class="tech-badge">Zip Flex</span></div>
           <h3>Zip Flex Perdeler</h3>
-          <p>Güvenli fermuar sistemi ile rüzgar direnci ve güneş koruması sunan motorlu dış mekan perdeleri.</p>
-          <span class="product-link">Teknik Detayları İncele &rarr;</span>
+          <p>Fermuar sistemi ile rüzgar direnci ve güneş koruması sunan motorlu dış perdeler.</p>
+          <span class="product-link">İncele &rarr;</span>
         </div>
       </div>
     </div>
@@ -344,14 +316,14 @@
             <img id="detail-img-1" src="" alt="Profil Detayı">
             <div>
               <h4>Yapısal Mühendislik</h4>
-              <p>Yüksek et kalınlığına sahip ısı yalıtımlı alüminyum profiller ve paslanmaz 304 çelik bağlantı elemanları ile onlarca yıllık dayanıklılık.</p>
+              <p>Yüksek et kalınlığına sahip ısı yalıtımlı alüminyum profiller ve paslanmaz çelik bağlantı elemanları.</p>
             </div>
           </div>
           <div class="tech-visual-card">
             <img id="detail-img-2" src="" alt="Motor Detayı">
             <div>
               <h4>Somfy Akıllı Otomasyon</h4>
-              <p>io-homecontrol entegrasyonu sayesinde hava sensörleriyle otonom çalışan sessiz motor teknolojisi.</p>
+              <p>io-homecontrol entegrasyonu sayesinde otonom çalışan sessiz motor teknolojisi.</p>
             </div>
           </div>
         </div>
@@ -365,26 +337,15 @@
       <div>
         <div class="action-panel">
           <div class="offer-card">
-            <h3>Sistem Performansı ve Teslimat</h3>
-            
-            <div class="perf-bar-group">
-              <div class="perf-label"><span>Rüzgar Direnci</span><span class="val" id="perf-wind-val">120 km/h</span></div>
-              <div class="perf-track"><div class="perf-fill" id="perf-wind-bar" style="width: 90%;"></div></div>
-            </div>
-            <div class="perf-bar-group">
-              <div class="perf-label"><span>Kar Yükü</span><span class="val" id="perf-snow-val">200 kg/m²</span></div>
-              <div class="perf-track"><div class="perf-fill" id="perf-snow-bar" style="width: 85%; background: #10b981;"></div></div>
-            </div>
-
+            <h3>Performans ve Teslimat</h3>
+            <div class="perf-bar-group"><div class="perf-label"><span>Rüzgar Direnci</span><span class="val" id="perf-wind-val">120 km/h</span></div><div class="perf-track"><div class="perf-fill" id="perf-wind-bar" style="width: 90%;"></div></div></div>
+            <div class="perf-bar-group"><div class="perf-label"><span>Kar Yükü</span><span class="val" id="perf-snow-val">200 kg/m²</span></div><div class="perf-track"><div class="perf-fill" id="perf-snow-bar" style="width: 85%; background: #10b981;"></div></div></div>
             <ul class="offer-list">
               <li>Üretim Süresi: <span id="detail-time">3-4 Hafta</span></li>
-              <li>Sistem Garantisi: <span>5 Yıl Kapsamlı</span></li>
-              <li>Motor Tipi: <span style="color: #0284c7;">Somfy</span></li>
+              <li>Garanti: <span>5 Yıl Kapsamlı</span></li>
               <li>Kurulum: <span style="color: #10b981;">Uzman Ekip Dahil</span></li>
             </ul>
-            <button class="detail-action-btn" onclick="goToConfigurator()">
-              ⚙️ 3D Simülatörde Tasarla
-            </button>
+            <button class="detail-action-btn" onclick="goToConfigurator()">⚙️ 3D Simülatörde Tasarla</button>
           </div>
         </div>
       </div>
@@ -393,52 +354,44 @@
 
   <!-- 4. TAMİR & BAKIM SAYFASI -->
   <section id="maintenance-section" class="page-section">
-    <div class="detail-hero" style="height: 45vh; background: #0f172a;">
+    <div class="detail-hero" style="height: 40vh; background: #0f172a;">
       <div class="detail-overlay" style="background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.5));"></div>
       <div class="detail-hero-content" style="text-align: center; margin: 0 auto; width: 100%;">
-        <h1 style="color: #fff; font-size: 3.5rem;">Tamir & Bakım Hizmetleri</h1>
-        <p style="color: #cbd5e1; font-size: 1.25rem; margin: 0 auto; max-width: 700px;">Kış bahçesi, pergola ve açılır cam sistemlerinizin ömrünü uzatan profesyonel onarım ve yenileme dokunuşları.</p>
+        <h1 style="color: #fff; font-size: 3rem;">Tamir & Bakım Hizmetleri</h1>
+        <p style="color: #cbd5e1; font-size: 1.1rem; margin: 0 auto; max-width: 700px;">Kış bahçesi, pergola ve açılır cam sistemlerinizin ömrünü uzatan profesyonel onarım ve yenileme dokunuşları.</p>
       </div>
     </div>
     
-    <div class="detail-body" style="grid-template-columns: 1fr; max-width: 1200px; padding-top: 60px;">
+    <div class="detail-body" style="grid-template-columns: 1fr; max-width: 1200px; padding-top: 50px;">
       <div class="tech-overview">
         <h2 style="text-align: center; margin-bottom: 20px;">Sistemleriniz İlk Günkü Gibi Kalsın</h2>
-        <p style="text-align: center; margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto;">DörtMevsimBahçem olarak sadece üretim ve montaj yapmıyor, aynı zamanda mevcut kış bahçesi, pergola, giyotin cam ve zip perde sistemleriniz için uzman ekibimizle kapsamlı tamir, yıllık periyodik bakım ve izolasyon yenileme hizmetleri sunuyoruz.</p>
+        <p style="text-align: center; margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">DörtMevsimBahçem olarak sadece üretim ve montaj yapmıyor, uzman ekibimizle kapsamlı tamir, yıllık bakım ve izolasyon yenileme hizmetleri sunuyoruz.</p>
         
-        <div class="tech-visual-grid" style="gap: 40px;">
-          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;">
-            <div style="padding: 40px;">
-              <div style="font-size: 3rem; margin-bottom: 15px;">⚙️</div>
-              <h4 style="font-size: 1.4rem; color: #0f172a;">Periyodik Bakım Anlaşmaları</h4>
-              <p style="font-size: 1rem; color: #475569;">Somfy motor sistemleri, alüminyum yürüyen aksamlar, raylar ve fitillerin yıllık bakımları yapılarak olası arızaların önüne geçilir, sistemin ömrü uzatılır.</p>
-            </div>
+        <div class="tech-visual-grid" style="gap: 30px;">
+          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">⚙️</div>
+            <h4 style="font-size: 1.2rem; color: #0f172a;">Periyodik Bakım</h4>
+            <p style="font-size: 0.9rem; color: #475569;">Somfy motor sistemleri, yürüyen aksamlar ve rayların yıllık bakımları yapılarak olası arızaların önüne geçilir.</p>
           </div>
-          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;">
-            <div style="padding: 40px;">
-              <div style="font-size: 3rem; margin-bottom: 15px;">🔧</div>
-              <h4 style="font-size: 1.4rem; color: #0f172a;">Mekanizma ve Motor Tamiri</h4>
-              <p style="font-size: 1rem; color: #475569;">Bozulan veya sesli çalışan giyotin cam motorları, pergola zincir/kayış sistemleri ve biyoklimatik çatı otomasyon arızaları uzman teknik ekibimiz tarafından onarılır.</p>
-            </div>
+          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🔧</div>
+            <h4 style="font-size: 1.2rem; color: #0f172a;">Mekanizma Tamiri</h4>
+            <p style="font-size: 0.9rem; color: #475569;">Giyotin motorları, pergola kayışları ve biyoklimatik çatı otomasyon arızaları uzman teknik ekibimizce onarılır.</p>
           </div>
-          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;">
-            <div style="padding: 40px;">
-              <div style="font-size: 3rem; margin-bottom: 15px;">💧</div>
-              <h4 style="font-size: 1.4rem; color: #0f172a;">İzolasyon ve Su Yalıtımı Yenileme</h4>
-              <p style="font-size: 1rem; color: #475569;">Zamanla deforme olan ve su sızdıran silikonlar, poliüretan mastikler ve kauçuk EPDM contalar tamamen kazınıp yenilenerek su alma problemlerine kesin çözüm sağlanır.</p>
-            </div>
+          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">💧</div>
+            <h4 style="font-size: 1.2rem; color: #0f172a;">İzolasyon Yenileme</h4>
+            <p style="font-size: 0.9rem; color: #475569;">Su sızdıran silikon ve contalar tamamen kazınıp yenilenerek su alma problemlerine kesin çözüm sağlanır.</p>
           </div>
-          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center;">
-            <div style="padding: 40px;">
-              <div style="font-size: 3rem; margin-bottom: 15px;">🪟</div>
-              <h4 style="font-size: 1.4rem; color: #0f172a;">Cam ve Kumaş Yenileme</h4>
-              <p style="font-size: 1rem; color: #475569;">Darbe sonucu kırılan veya buğu yapan ısıcamların değişimi, güneşten yıpranan pergola kumaşlarının veya yırtılan zip perde (screen) kumaşlarının sıfırıyla değişimi yapılır.</p>
-            </div>
+          <div class="tech-visual-card" style="box-shadow: 0 10px 25px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: center; padding: 30px;">
+            <div style="font-size: 2.5rem; margin-bottom: 10px;">🪟</div>
+            <h4 style="font-size: 1.2rem; color: #0f172a;">Cam ve Kumaş Değişimi</h4>
+            <p style="font-size: 0.9rem; color: #475569;">Kırılan ısıcamların, güneşten yıpranan pergola veya yırtılan zip perde kumaşlarının sıfırıyla değişimi yapılır.</p>
           </div>
         </div>
         
-        <div style="text-align: center; margin-top: 60px;">
-          <a href="https://wa.me/905389808755?text=Merhaba,%20sistemim%20i%C3%A7in%20tamir%20ve%20bak%C4%B1m%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="hero-btn" style="padding: 18px 50px; font-size: 1.15rem; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);">Hemen Servis Talebi Oluştur &rarr;</a>
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="https://wa.me/905389808755?text=Merhaba,%20tamir%20ve%20bak%C4%B1m%20hizmetleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." target="_blank" class="hero-btn" style="padding: 15px 40px; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);">Servis Talebi Oluştur &rarr;</a>
         </div>
       </div>
     </div>
@@ -446,10 +399,20 @@
 
   <!-- 5. 3D CONFIGURATOR -->
   <section id="configurator-section" class="page-section">
+    <div id="canvas-container">
+      <div class="tech-hud" id="techHudPanel">
+        <h4>Canlı Telemetri</h4>
+        <div class="hud-stat"><div class="hud-label"><span>Rüzgar Direnci</span><span class="val" id="hud-wind-val">120 km/h</span></div><div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-wind-bar" style="width: 90%;"></div></div></div>
+        <div class="hud-stat"><div class="hud-label"><span>Kar Kapasitesi</span><span class="val" id="hud-snow-val">200 kg/m²</span></div><div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-snow-bar" style="width: 85%; background: #10b981;"></div></div></div>
+        <ul class="hud-text-list"><li>Alaşım <span>6063-T5</span></li><li>Isı Yalıtımı <span id="hud-insulation">Düşük</span></li></ul>
+      </div>
+      <div class="overlay-tag">🖱️ Kaydır ve Yakınlaştır</div>
+    </div>
+
     <div id="sidebar">
       <div>
         <h2 class="sidebar-title">3D CAD Simülatörü</h2>
-        <p style="color:#64748b; font-size:0.82rem;">İstediğiniz sistemleri ve cepheleri kendiniz yapılandırın.</p>
+        <p style="color:#64748b; font-size:0.8rem;">İstediğiniz sistemi kendiniz yapılandırın.</p>
       </div>
 
       <div class="grid-2">
@@ -458,30 +421,30 @@
         <div class="form-group"><label>Yükseklik (m):</label><input type="number" id="frontHeight" value="2.5" min="2.1" step="0.1" /></div>
         <div class="form-group"><label>Profil Rengi:</label>
           <select id="profileColor">
-            <option value="#1c1917">Antrasit Gri (RAL 7016)</option>
-            <option value="#09090b">Mat Siyah (RAL 9005)</option>
-            <option value="#f8fafc">Beyaz (RAL 9016)</option>
+            <option value="#1c1917">Antrasit Gri</option>
+            <option value="#09090b">Mat Siyah</option>
+            <option value="#f8fafc">Beyaz</option>
           </select>
         </div>
       </div>
 
       <div class="form-group">
-        <label>ÇATI SİSTEMİ KONFİGÜRASYONU</label>
+        <label>ÇATI SİSTEMİ</label>
         <div class="roof-selector">
           <button class="roof-btn active" id="btn-bioclimatic" onclick="setRoofType('bioclimatic', this)">Forte Bioklimatik</button>
-          <button class="roof-btn" id="btn-rolling_roof" onclick="setRoofType('rolling_roof', this)">Lamella Açılır Tavan</button>
+          <button class="roof-btn" id="btn-rolling_roof" onclick="setRoofType('rolling_roof', this)">Lamella Tavan</button>
           <button class="roof-btn" id="btn-pergola" onclick="setRoofType('pergola', this)">Pergola Tente</button>
           <button class="roof-btn" id="btn-veranda" onclick="setRoofType('veranda', this)">Velura Veranda</button>
         </div>
       </div>
       
       <div class="slider-container" id="roofControls">
-        <div class="slider-header"><span id="roofSliderLabel">Panel Açısı (Somfy):</span><span id="roofSliderVal">0°</span></div>
+        <div class="slider-header"><span id="roofSliderLabel">Çatı Açısı:</span><span id="roofSliderVal">0°</span></div>
         <input type="range" id="roofActionVal" min="0" max="100" value="0" />
       </div>
 
       <div class="module-box">
-        <div class="module-title">KATMAN 1: MİMARİ CEPHELER VE KAPI ENTEGRASYONU</div>
+        <div class="module-title">CEPHELER VE KAPILAR</div>
         <div class="facade-grid">
           <div class="form-group"><label>Ön Cephe</label>
             <select id="glazingFront" class="side-select">
@@ -496,7 +459,6 @@
               <option value="cambalkon_door_left">Cam Balkon + Sol Kapı</option>
               <option value="cambalkon_door_right">Cam Balkon + Sağ Kapı</option>
               <option value="rts116">RTS116 Kaldır Sür</option>
-              <option value="fd60">FD60 Katlanır Cam</option>
               <option value="wall">Sabit Duvar</option>
             </select>
           </div>
@@ -513,7 +475,6 @@
               <option value="cambalkon_door_left">Cam Balkon + Sol Kapı</option>
               <option value="cambalkon_door_right">Cam Balkon + Sağ Kapı</option>
               <option value="rts116">RTS116 Kaldır Sür</option>
-              <option value="fd60">FD60 Katlanır Cam</option>
               <option value="wall">Sabit Duvar</option>
             </select>
           </div>
@@ -530,7 +491,6 @@
               <option value="cambalkon_door_left">Cam Balkon + Sol Kapı</option>
               <option value="cambalkon_door_right">Cam Balkon + Sağ Kapı</option>
               <option value="rts116">RTS116 Kaldır Sür</option>
-              <option value="fd60">FD60 Katlanır Cam</option>
               <option value="wall">Sabit Duvar</option>
             </select>
           </div>
@@ -547,7 +507,6 @@
               <option value="cambalkon_door_left">Cam Balkon + Sol Kapı</option>
               <option value="cambalkon_door_right">Cam Balkon + Sağ Kapı</option>
               <option value="rts116">RTS116 Kaldır Sür</option>
-              <option value="fd60">FD60 Katlanır Cam</option>
               <option value="wall">Sabit Duvar</option>
             </select>
           </div>
@@ -555,84 +514,58 @@
       </div>
 
       <div class="module-box">
-        <div class="module-title">KATMAN 2: ZİP PERDELER</div>
+        <div class="module-title">ZİP PERDELER</div>
         <div class="checkbox-grid">
-          <label class="checkbox-label"><input type="checkbox" id="zipFront" class="zip-check"> Ön Cephe</label>
-          <label class="checkbox-label"><input type="checkbox" id="zipBack" class="zip-check"> Arka Cephe</label>
-          <label class="checkbox-label"><input type="checkbox" id="zipLeft" class="zip-check"> Sol Cephe</label>
-          <label class="checkbox-label"><input type="checkbox" id="zipRight" class="zip-check"> Sağ Cephe</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipFront" class="zip-check"> Ön</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipBack" class="zip-check"> Arka</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipLeft" class="zip-check"> Sol</label>
+          <label class="checkbox-label"><input type="checkbox" id="zipRight" class="zip-check"> Sağ</label>
         </div>
       </div>
 
       <div class="slider-container" id="glassControls" style="display: none;">
-        <div class="slider-header"><span>Cam / Kapı Sistemlerini Aç/Kapat:</span><span id="glassVal">Kapalı</span></div>
+        <div class="slider-header"><span>Cam / Kapı Açıklığı:</span><span id="glassVal">Kapalı</span></div>
         <input type="range" id="glassOpenness" min="0" max="100" value="0" />
       </div>
       <div class="slider-container" id="zipControls" style="display: none;">
-        <div class="slider-header"><span>Zip Flex (Somfy Motor):</span><span id="zipVal">Yukarıda (Açık)</span></div>
+        <div class="slider-header"><span>Perde Açıklığı:</span><span id="zipVal">Açık</span></div>
         <input type="range" id="zipOpenness" min="0" max="100" value="100" />
       </div>
 
-      <div class="module-box" style="background: rgba(2, 132, 199, 0.05); border-color: rgba(2, 132, 199, 0.2); padding: 12px;">
-        <label class="checkbox-label" style="color:#0284c7; font-weight:700; width:100%; display:flex; justify-content:center; gap: 8px;">
-          <input type="checkbox" id="autoAnimateCheck" checked> 
-          🔄 Otomatik Hareket Simülasyonu
+      <div class="module-box" style="background: rgba(2, 132, 199, 0.05); border-color: rgba(2, 132, 199, 0.2);">
+        <label class="checkbox-label" style="color:#0284c7; font-weight:700; width:100%; justify-content:center;">
+          <input type="checkbox" id="autoAnimateCheck" checked> 🔄 Otomatik Animasyon
         </label>
       </div>
 
       <div class="summary-card">
-        <div class="area-label">Toplam Kapalı Alan</div>
+        <div class="area-label">Toplam Alan</div>
         <div class="area-val" id="areaDisplay">17.50 m²</div>
       </div>
-      <button class="btn-action" onclick="sendWhatsAppOffer()">💬 Proje Teklifi İste (Tüm Detaylar)</button>
-    </div>
-
-    <!-- 3D SCENE AREA & HUD -->
-    <div id="canvas-container">
-      <div class="tech-hud" id="techHudPanel">
-        <h4>Canlı Telemetri</h4>
-        <div class="hud-stat">
-          <div class="hud-label"><span>Rüzgar Yükü Direnci</span><span class="val" id="hud-wind-val">120 km/h</span></div>
-          <div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-wind-bar" style="width: 90%;"></div></div>
-        </div>
-        <div class="hud-stat">
-          <div class="hud-label"><span>Kar Yükü Kapasitesi</span><span class="val" id="hud-snow-val">200 kg/m²</span></div>
-          <div class="hud-bar-bg"><div class="hud-bar-fill" id="hud-snow-bar" style="width: 85%; background: #10b981;"></div></div>
-        </div>
-        <ul class="hud-text-list">
-          <li>Statik Alaşım <span>6063-T5 Ekstrüzyon</span></li>
-          <li>Otomasyon <span>Somfy Motor</span></li>
-          <li>Isı Yalıtımı <span id="hud-insulation">Düşük (Açık Sistem)</span></li>
-        </ul>
-      </div>
-      <div class="overlay-tag">🖱️ Sol Tık: Döndür | Tekerlek: Yakınlaştır</div>
+      <button class="btn-action" onclick="sendWhatsAppOffer()">💬 Teklif İste</button>
     </div>
   </section>
 
   <!-- GENERAL FOOTER -->
   <footer id="main-footer">
-    <div class="footer-content" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; padding: 50px 5%; background: #ffffff; border-top: 1px solid #e2e8f0;">
-      <div class="footer-col" style="max-width: 360px;">
-        <div style="background: #0f172a; display: inline-block; padding: 6px 12px; border-radius: 6px; margin-bottom: 15px;">
-          <img src="logo.jpg" onerror="handleImgError(this, 'logo')" alt="DörtMevsimBahçem" style="height: 32px; display: block; filter: brightness(0) invert(1);">
-        </div>
-        <p style="color: #64748b; font-size: 0.9rem; line-height: 1.6;">Dış mekanları yeniden tanımlayan yenilikçi ve akıllı alüminyum mimari sistemler. Üstün mühendislik ve kusursuz estetik.</p>
+    <div class="footer-content" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; padding: 40px 5%; background: #ffffff; border-top: 1px solid #e2e8f0;">
+      <div class="footer-col" style="max-width: 320px;">
+        <img src="logo.jpg" onerror="handleImgError(this, 'logo')" alt="DörtMevsimBahçem" style="height: 28px; filter: grayscale(100%); opacity: 0.7; margin-bottom: 15px;">
+        <p style="color: #64748b; font-size: 0.85rem; line-height: 1.6;">Dış mekanları yeniden tanımlayan akıllı mimari sistemler.</p>
       </div>
       <div class="footer-col">
-        <h4 style="color: #0f172a; margin-bottom: 15px;">Hızlı Bağlantılar</h4>
-        <a onclick="showPage('home')" style="display: block; color: #64748b; margin-bottom: 8px; cursor: pointer;">Ana Sayfa</a>
-        <a onclick="showPage('products')" style="display: block; color: #64748b; margin-bottom: 8px; cursor: pointer;">Sistemlerimiz</a>
-        <a onclick="showPage('maintenance')" style="display: block; color: #64748b; margin-bottom: 8px; cursor: pointer;">Tamir & Bakım</a>
-        <a onclick="showPage('configurator')" style="display: block; color: #64748b; cursor: pointer;">3D Konfigüratör</a>
+        <h4 style="color: #0f172a; margin-bottom: 10px; font-size: 1rem;">Menü</h4>
+        <a onclick="showPage('home')" style="display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; cursor: pointer;">Ana Sayfa</a>
+        <a onclick="showPage('products')" style="display: block; color: #64748b; font-size: 0.9rem; margin-bottom: 6px; cursor: pointer;">Sistemler</a>
+        <a onclick="showPage('configurator')" style="display: block; color: #64748b; font-size: 0.9rem; cursor: pointer;">3D Konfigüratör</a>
       </div>
       <div class="footer-col">
-        <h4 style="color: #0f172a; margin-bottom: 15px;">İletişim</h4>
-        <p style="color: #64748b; margin-bottom: 8px;">📍 Çekmeköy, İstanbul, Türkiye</p>
-        <p style="color: #64748b; margin-bottom: 8px;">📞 +90 538 980 87 55</p>
-        <p style="color: #64748b;">✉️ info@dortmevsimbahcem.com.tr</p>
+        <h4 style="color: #0f172a; margin-bottom: 10px; font-size: 1rem;">İletişim</h4>
+        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 6px;">📍 İstanbul, Türkiye</p>
+        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 6px;">📞 +90 538 980 87 55</p>
       </div>
     </div>
-    <div style="border-top: 1px solid #e2e8f0; padding: 20px 5%; font-size: 0.8rem; background: #f8fafc; text-align: center; color: #64748b;">
+    <div style="border-top: 1px solid #e2e8f0; padding: 15px 5%; font-size: 0.75rem; background: #f8fafc; text-align: center; color: #94a3b8;">
       &copy; 2026 DÖRTMEVSİMBAHÇEM. Tüm hakları saklıdır.
     </div>
   </footer>
@@ -640,69 +573,17 @@
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const vid = document.getElementById('heroBgVideo');
-      if (vid) {
-        vid.muted = true;
-        vid.play().catch(err => console.warn('Video otomatik oynatma uyarısı:', err));
-      }
+      if (vid) { vid.muted = true; vid.play().catch(e => {}); }
     });
 
     const productData = {
-      forte: {
-        title: "Forte Bioklimatik Pergola",
-        shortDesc: "Konforu ve kullanılabilirliği artıran ayarlanabilir, uzaktan kumandalı hareketli paneller.",
-        longDesc: "DörtMevsimBahçem Climatic Forte; ışığı, hava akışını ve sıcaklığı doğal olarak düzenleyen hareketli alüminyum panellere sahiptir. Paneller açıldığında havanın serbestçe dolaşmasını sağlar, kapatıldığında ise entegre gizli oluk sistemiyle yağmura ve kara karşı tam sızdırmazlık sunar.",
-        baseImg: "forte", altImg: "bioklimatik",
-        specs: { "Gövde Profili": "6063-T5 Masif Alüminyum Alaşım", "Motor Sistemi": "Somfy Lineer Aktüatör", "Dönüş Açısı": "110 Derece Eksenel Hareket", "Su Tahliyesi": "Entegre Gizli Oluk Sistemi", "Maksimum Boyutlar": "30 m² Tek Modül Alan Limiti" },
-        time: "3-4 Hafta", wind: "120 km/h", windPct: "90%", snow: "200 kg/m²", snowPct: "85%", configTarget: "bioclimatic"
-      },
-      lamella: {
-        title: "Lamella Açılır Kapanır Çatı",
-        shortDesc: "Açılır kapanır hassasiyetle doğaya dayanıklı konfor ve kesintisiz gökyüzü.",
-        longDesc: "Doğaya kusursuzca uyum sağlamak üzere tasarlanan Lamella modeli, hem kendi ekseninde dönebilen hem de geriye doğru tamamen toplanabilen alüminyum panellere sahiptir. Kumaş pergolaların aksine güneşte renk solması yapmaz ve dört mevsim yüksek dayanım gösterir.",
-        baseImg: "lamella", altImg: "rolling",
-        specs: { "Çatı Hareketi": "Eksenel Dönüş ve Tamamen Geriye Toplanma", "Dayanıklılık": "Hava koşullarına ve korozyona tam direnç", "Motor Sistemi": "Somfy Tüp Motor", "Maksimum Boyutlar": "35 m² Tek Modül Alan Limiti", "Yalıtım": "EPDM Conta Destekli İzolasyon" },
-        time: "4-5 Hafta", wind: "100 km/h", windPct: "75%", snow: "150 kg/m²", snowPct: "70%", configTarget: "rolling_roof"
-      },
-      guillotine: {
-        title: "Giyotin Cam Sistemleri",
-        shortDesc: "Uzaktan kumandalı, hareketli küpeşte ve dikey cam rüzgarlık sistemi.",
-        longDesc: "Giyotin cam sistemlerimiz mekanlarınıza modern bir hava katar. Alt panel sabit kalırken üst paneller otomatik olarak aşağı iner ve şık bir küpeşte oluşturur. Gelişmiş ısı yalıtımı teknolojisi sayesinde dört mevsim üstün koruma sağlar.",
-        baseImg: "giyotin1", altImg: "giyotin",
-        specs: { "Hareket Mekanizması": "Motorlu ve Uzaktan Kumandalı Çelik Zincir", "Cam Tipi": "8mm Temperli veya Isıcam Seçenekleri", "Donanım": "Alüminyum Kutu Profiller ve Sessiz Çalışma", "Yalıtım": "Isı Bariyerli Yan Raylar", "Otomasyon": "Uzaktan Kumandalı Somfy Motor" },
-        time: "3-4 Hafta", wind: "110 km/h", windPct: "80%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda"
-      },
-      sliding: {
-        title: "Sürme Cam Sistemleri",
-        shortDesc: "Estetik ve kesintisiz manzara sunan, kolay kullanımlı standart sürme sistemleri.",
-        longDesc: "Geniş açıklıklar için tasarlanmış, tekerlekli mekanizması ile pürüzsüz kayma sağlayan sürme cam sistemidir. Düşük eşikli yapısıyla iç ve dış mekan arasında engelsiz bir geçiş sunar.",
-        baseImg: "sliding", altImg: "siliding",
-        specs: { "Sistem": "Eşiksiz Alt Taşıyıcılı Sürme", "Cam Tipi": "8mm/10mm Temperli veya Isıcam", "Donanım": "Paslanmaz Çelik Çift Rulmanlı Tekerlek", "Yalıtım": "Alüminyum Kenet Kenetleme", "Kilitleme": "Güvenlikli İç Mandallı Kilit" },
-        time: "3-4 Hafta", wind: "100 km/h", windPct: "75%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda"
-      },
-      rts116: {
-        title: "RTS116 Kaldır Sür Sistem",
-        shortDesc: "Yüksek ısı yalıtımı gerektiren geniş cepheler için ağır yük kapasiteli sürme sistemi.",
-        longDesc: "RTS116 Kaldır-Sür (Hebe Schiebe) sistemi, maksimum performans ve prestij arayanlar için tasarlandı. Kol çevrildiğinde kanat havaya kalkar ve ray üzerinde hafifçe kayar, kapatıldığında ise yerine oturarak kusursuz ses ve ısı yalıtımı sağlar.",
-        baseImg: "rts116", altImg: "kaldirsir",
-        specs: { "Sistem": "Hebe Schiebe (Kaldır Sür)", "Profil Derinliği": "116mm Kasa Kalınlığı", "Cam Tipi": "Çok Katmanlı Ağır Isıcam Sistemleri", "Yalıtım": "Poliamid Isı Bariyerleri (Termal Koparma)", "Taşıma Kapasitesi": "Kanat Başı 400kg Taşıma" },
-        time: "4-6 Hafta", wind: "140 km/h", windPct: "100%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda"
-      },
-      cambalkon: {
-        title: "Katlanır Cam Balkon",
-        shortDesc: "Manzaranızı bölmeyen, tamamen katlanarak açılabilen esnek cam sistemi.",
-        longDesc: "DörtMevsimBahçem katlanır cam balkon sistemleri, mekanınızı dış etkenlerden korurken panoramik görüntüyü kesintisiz yaşamanızı sağlar. Tüm camlar bir kenara toplanarak %100 açık alan elde edilebilir.",
-        baseImg: "cam1", altImg: "cam2",
-        specs: { "Sistem": "Katlanır (Folding) Cam Balkon", "Cam Tipi": "8mm/10mm Temperli Şeffaf Cam", "Profil": "İnce Alüminyum Çerçeve", "Yalıtım": "Kıl Fitil ve Mıknatıslı Fitil Opsiyonu", "Kullanım": "Tamamen Açılabilir ve Kenara Toplanabilir" },
-        time: "2-3 Hafta", wind: "90 km/h", windPct: "65%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda"
-      },
-      zip: {
-        title: "Zip Flex Perdeler",
-        shortDesc: "Fermuarlı ray sistemi ile rüzgara dayanıklı, motorlu dış mekan perdeleri.",
-        longDesc: "Zip Flex sistemi özel fermuarlı yan kanal tasarımı sayesinde sert rüzgarlara karşı raydan çıkmadan direnir. Mikro delikli Serge Ferrari kumaş yapısı dışarıdan içerinin görünmesini engellerken içeriden dışarıyı net bir şekilde izlemenizi sağlar.",
-        baseImg: "zip1", altImg: "zip",
-        specs: { "Seri": "Zip Flex / Solar Flex", "Kumaş Tipi": "Mikro Delikli Teknik Screen Kumaş", "Fermuar Sistemi": "Rüzgar Kilidi (Tam Sızdırmaz Yan Raylar)", "Motor Sistemi": "Somfy Sessiz Perde Motoru", "UV Filtresi": "%95'e Varan Zararlı Güneş Işını Engelleme" },
-        time: "2-3 Hafta", wind: "90 km/h", windPct: "70%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "bioclimatic"
-      }
+      forte: { title: "Forte Bioklimatik Pergola", shortDesc: "Ayarlanabilir, uzaktan kumandalı hareketli paneller.", longDesc: "Işığı, hava akışını ve sıcaklığı doğal olarak düzenleyen hareketli alüminyum panellere sahiptir.", baseImg: "forte", altImg: "bioklimatik", specs: { "Gövde": "6063-T5 Alüminyum", "Dönüş": "110° Eksenel Hareket" }, time: "3-4 Hafta", wind: "120 km/h", windPct: "90%", snow: "200 kg/m²", snowPct: "85%", configTarget: "bioclimatic" },
+      lamella: { title: "Lamella Açılır Çatı", shortDesc: "Doğaya dayanıklı konfor ve kesintisiz gökyüzü.", longDesc: "Hem kendi ekseninde dönebilen hem de geriye doğru toplanabilen alüminyum panellere sahiptir.", baseImg: "lamella", altImg: "rolling", specs: { "Çatı": "Tamamen Toplanma", "Motor": "Somfy Tüp Motor" }, time: "4-5 Hafta", wind: "100 km/h", windPct: "75%", snow: "150 kg/m²", snowPct: "70%", configTarget: "rolling_roof" },
+      guillotine: { title: "Giyotin Cam", shortDesc: "Hareketli küpeşte ve dikey cam sistemi.", longDesc: "Alt panel sabit kalırken üst paneller otomatik iner ve şık bir küpeşte oluşturur.", baseImg: "giyotin1", altImg: "giyotin", specs: { "Mekanizma": "Motorlu Çelik Zincir", "Cam": "Isıcam Seçenekleri" }, time: "3-4 Hafta", wind: "110 km/h", windPct: "80%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda" },
+      sliding: { title: "Sürme Cam", shortDesc: "Estetik, kesintisiz manzaralı sürme sistemleri.", longDesc: "Düşük eşikli yapısıyla iç ve dış mekan arasında engelsiz bir geçiş sunar.", baseImg: "sliding", altImg: "siliding", specs: { "Sistem": "Eşiksiz Alt Taşıyıcılı", "Cam": "Temperli / Isıcam" }, time: "3-4 Hafta", wind: "100 km/h", windPct: "75%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda" },
+      rts116: { title: "RTS116 Kaldır Sür", shortDesc: "Ağır yük kapasiteli yalıtımlı sürme sistemi.", longDesc: "Kol çevrildiğinde kanat havaya kalkar, kapatıldığında oturarak kusursuz yalıtım sağlar.", baseImg: "rts116", altImg: "kaldirsir", specs: { "Sistem": "Hebe Schiebe", "Yalıtım": "Termal Koparma" }, time: "4-6 Hafta", wind: "140 km/h", windPct: "100%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda" },
+      cambalkon: { title: "Katlanır Cam Balkon", shortDesc: "Kenara toplanabilen esnek cam sistemi.", longDesc: "Panoramik görüntüyü kesintisiz yaşamanızı sağlar. Tüm camlar bir kenara toplanabilir.", baseImg: "cam1", altImg: "cam2", specs: { "Sistem": "Folding", "Yalıtım": "Mıknatıslı Fitil Opsiyonu" }, time: "2-3 Hafta", wind: "90 km/h", windPct: "65%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "veranda" },
+      zip: { title: "Zip Flex Perdeler", shortDesc: "Rüzgara dayanıklı, motorlu dış mekan perdeleri.", longDesc: "Fermuarlı yan kanal tasarımı sayesinde sert rüzgarlara karşı direnir, güneşi süzer.", baseImg: "zip1", altImg: "zip", specs: { "Kumaş": "Mikro Delikli Screen", "Filtre": "%95 UV Engelleme" }, time: "2-3 Hafta", wind: "90 km/h", windPct: "70%", snow: "Cephe Sistemi", snowPct: "100%", configTarget: "bioclimatic" }
     };
 
     let currentConfigTarget = 'bioclimatic';
@@ -714,8 +595,9 @@
       if (target) { target.classList.add('active'); target.style.display = (pageId === 'configurator' || pageId === 'home') ? 'flex' : 'block'; }
       const navLink = document.getElementById('nav-' + pageId);
       if (navLink) navLink.classList.add('active');
-      const footer = document.getElementById('main-footer');
-      if (footer) footer.style.display = pageId === 'configurator' ? 'none' : 'block';
+      
+      document.getElementById('mobileNav').classList.remove('active'); // Mobilde menüyü kapat
+      
       if (pageId === 'home') { const vid = document.getElementById('heroBgVideo'); if (vid) vid.play().catch(() => {}); }
       if (pageId === 'configurator') { setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 50); }
       window.scrollTo(0, 0);
@@ -730,14 +612,9 @@
     function openProductDetail(productId) {
       const data = productData[productId];
       if (!data) return;
-
-      const heroImg = document.getElementById('detail-hero-img');
-      const img1 = document.getElementById('detail-img-1');
-      const img2 = document.getElementById('detail-img-2');
-
-      setSmartImage(heroImg, data.baseImg, data.altImg);
-      setSmartImage(img1, "detay1", data.baseImg);
-      setSmartImage(img2, "detay2", data.baseImg);
+      setSmartImage(document.getElementById('detail-hero-img'), data.baseImg, data.altImg);
+      setSmartImage(document.getElementById('detail-img-1'), "detay1", data.baseImg);
+      setSmartImage(document.getElementById('detail-img-2'), "detay2", data.baseImg);
 
       document.getElementById('detail-title').innerText = data.title;
       document.getElementById('detail-desc-short').innerText = data.shortDesc;
@@ -761,87 +638,66 @@
       if (btn) setRoofType(currentConfigTarget, btn);
     }
 
-    // --- 3D CAD SCENE (ZEMİN MATEMATİĞİ) ---
+    // --- 3D CAD SCENE ---
     function getWPos(side, localX, localZ) {
-        let c = Math.cos(side.rotY);
-        let s = Math.sin(side.rotY);
+        let c = Math.cos(side.rotY); let s = Math.sin(side.rotY);
         return { x: side.posX + localX * c + localZ * s, z: side.posZ - localX * s + localZ * c };
     }
 
-    let currentRoof = 'bioclimatic';
-    let roofActionElements = []; let glassPanels = []; let zipPanels = [];
-
+    let currentRoof = 'bioclimatic'; let roofActionElements = []; let glassPanels = []; let zipPanels = [];
     const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene(); scene.background = new THREE.Color(0xf1f5f9);
     const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100); camera.position.set(9.5, 4.2, 11.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.outputEncoding = THREE.sRGBEncoding;
     container.appendChild(renderer.domElement);
-
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true; controls.maxPolarAngle = Math.PI / 2 - 0.03; controls.target.set(0, 1.2, 0);
 
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x94a3b8, 0.8); scene.add(hemiLight);
-    const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(12, 22, 14); sun.castShadow = true; sun.shadow.mapSize.width = 2048; sun.shadow.mapSize.height = 2048; scene.add(sun);
+    const sun = new THREE.DirectionalLight(0xffffff, 1.2); sun.position.set(12, 22, 14); sun.castShadow = true; scene.add(sun);
     const systemGroup = new THREE.Group(); scene.add(systemGroup);
 
-    const floorGeo = new THREE.PlaneGeometry(36, 36);
-    const floorMat = new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.9, metalness: 0.05 });
-    const floor = new THREE.Mesh(floorGeo, floorMat); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(36, 36), new THREE.MeshStandardMaterial({ color: 0xe2e8f0, roughness: 0.9 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
     const cadGridMajor = new THREE.GridHelper(36, 36, 0x0284c7, 0xcbd5e1); cadGridMajor.position.y = 0.01; scene.add(cadGridMajor);
 
     const POST_SIZE = 0.12; const BEAM_HEIGHT = 0.16; const BEAM_WIDTH = 0.09;
-    const frameMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, metalness: 0.3, roughness: 0.45 });
-    const louverMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, metalness: 0.35, roughness: 0.4 });
-    const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.45, roughness: 0.05, metalness: 0.1, reflectivity: 0.9, side: THREE.DoubleSide });
-    const wallMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.85 });
-    const zipMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.85, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
+    const frameMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.45 });
+    const louverMat = new THREE.MeshStandardMaterial({ color: 0x1c1917, roughness: 0.4 });
+    const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.45, roughness: 0.05, side: THREE.DoubleSide });
+    const wallMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8 });
+    const zipMat = new THREE.MeshStandardMaterial({ color: 0x475569, transparent: true, opacity: 0.85, side: THREE.DoubleSide });
 
-    function updateZipColor(hexColor) {
-      const baseColor = new THREE.Color(hexColor); baseColor.lerp(new THREE.Color(0x64748b), 0.35); zipMat.color.copy(baseColor);
-    }
+    function updateZipColor(hexColor) { const baseColor = new THREE.Color(hexColor); baseColor.lerp(new THREE.Color(0x64748b), 0.35); zipMat.color.copy(baseColor); }
 
     function createFramedGlass(pw, ph, fThick = 0.04) {
-      const grp = new THREE.Group(); const fDepth = 0.03;
-      const glass = new THREE.Mesh(new THREE.BoxGeometry(pw, ph, 0.01), glassMat); grp.add(glass);
-      const tbGeo = new THREE.BoxGeometry(pw, fThick, fDepth);
-      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph / 2 - fThick / 2;
-      const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph / 2 + fThick / 2;
-      const lrGeo = new THREE.BoxGeometry(fThick, ph - fThick * 2, fDepth);
-      const leftF = new THREE.Mesh(lrGeo, frameMat); leftF.position.x = -pw / 2 + fThick / 2;
-      const rightF = new THREE.Mesh(lrGeo, frameMat); rightF.position.x = pw / 2 - fThick / 2;
+      const grp = new THREE.Group(); const glass = new THREE.Mesh(new THREE.BoxGeometry(pw, ph, 0.01), glassMat); grp.add(glass);
+      const tbGeo = new THREE.BoxGeometry(pw, fThick, 0.03);
+      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph / 2 - fThick / 2; const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph / 2 + fThick / 2;
+      const lrGeo = new THREE.BoxGeometry(fThick, ph - fThick * 2, 0.03);
+      const leftF = new THREE.Mesh(lrGeo, frameMat); leftF.position.x = -pw / 2 + fThick / 2; const rightF = new THREE.Mesh(lrGeo, frameMat); rightF.position.x = pw / 2 - fThick / 2;
       grp.add(topF, botF, leftF, rightF); return grp;
     }
 
     function createFramelessGlass(pw, ph) {
-      const grp = new THREE.Group(); const fDepth = 0.03;
-      const glass = new THREE.Mesh(new THREE.BoxGeometry(pw - 0.005, ph, 0.01), glassMat); grp.add(glass);
-      const tbGeo = new THREE.BoxGeometry(pw, 0.04, fDepth);
-      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph / 2 - 0.02;
-      const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph / 2 + 0.02;
+      const grp = new THREE.Group(); const glass = new THREE.Mesh(new THREE.BoxGeometry(pw - 0.005, ph, 0.01), glassMat); grp.add(glass);
+      const tbGeo = new THREE.BoxGeometry(pw, 0.04, 0.03);
+      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph / 2 - 0.02; const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph / 2 + 0.02;
       grp.add(topF, botF); return grp;
     }
 
     function createHingedAluminumDoor(pw, ph, openDirection = 'left') {
-      const pivotGroup = new THREE.Group(); const doorPanel = new THREE.Group();
-      const fThick = 0.06; const fDepth = 0.04;
+      const pivotGroup = new THREE.Group(); const doorPanel = new THREE.Group(); const fThick = 0.06;
       const glass = new THREE.Mesh(new THREE.BoxGeometry(pw - fThick*2, ph - fThick*2, 0.01), glassMat); glass.position.z = 0.005; doorPanel.add(glass);
-      const tbGeo = new THREE.BoxGeometry(pw, fThick, fDepth);
-      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph/2 - fThick/2;
-      const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph/2 + fThick/2;
-      const lrGeo = new THREE.BoxGeometry(fThick, ph, fDepth);
-      const leftF = new THREE.Mesh(lrGeo, frameMat); leftF.position.x = -pw/2 + fThick/2;
-      const rightF = new THREE.Mesh(lrGeo, frameMat); rightF.position.x = pw/2 - fThick/2;
-      const handleGeo = new THREE.CylinderGeometry(0.012, 0.012, 0.2, 16);
-      const handleMat = new THREE.MeshStandardMaterial({ color: 0xcccccc, metalness: 0.9, roughness: 0.1 });
-      const handle = new THREE.Mesh(handleGeo, handleMat); handle.rotation.z = Math.PI / 2;
+      const tbGeo = new THREE.BoxGeometry(pw, fThick, 0.04);
+      const topF = new THREE.Mesh(tbGeo, frameMat); topF.position.y = ph/2 - fThick/2; const botF = new THREE.Mesh(tbGeo, frameMat); botF.position.y = -ph/2 + fThick/2;
+      const lrGeo = new THREE.BoxGeometry(fThick, ph, 0.04);
+      const leftF = new THREE.Mesh(lrGeo, frameMat); leftF.position.x = -pw/2 + fThick/2; const rightF = new THREE.Mesh(lrGeo, frameMat); rightF.position.x = pw/2 - fThick/2;
+      const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.2, 16), new THREE.MeshStandardMaterial({ color: 0xcccccc })); handle.rotation.z = Math.PI / 2;
       
-      if(openDirection === 'left') {
-        doorPanel.position.x = pw / 2; handle.position.set(pw/2 - 0.08, 0, 0.04); 
-      } else {
-        doorPanel.position.x = -pw / 2; handle.position.set(-pw/2 + 0.08, 0, 0.04);
-      }
+      if(openDirection === 'left') { doorPanel.position.x = pw / 2; handle.position.set(pw/2 - 0.08, 0, 0.04); } 
+      else { doorPanel.position.x = -pw / 2; handle.position.set(-pw/2 + 0.08, 0, 0.04); }
       doorPanel.add(topF, botF, leftF, rightF, handle); pivotGroup.add(doorPanel); return pivotGroup;
     }
 
@@ -849,64 +705,46 @@
       roofActionElements = []; glassPanels = []; zipPanels = [];
       while (systemGroup.children.length > 0) systemGroup.remove(systemGroup.children[0]);
 
-      const W = parseFloat(document.getElementById('width').value) || 5.0;
-      const D = parseFloat(document.getElementById('depth').value) || 3.5;
-      const FH = parseFloat(document.getElementById('frontHeight').value) || 2.5;
-      const BH = FH + 0.15;
+      const W = parseFloat(document.getElementById('width').value) || 5.0; const D = parseFloat(document.getElementById('depth').value) || 3.5;
+      const FH = parseFloat(document.getElementById('frontHeight').value) || 2.5; const BH = FH + 0.15;
 
-      function createBox(w, h, d, x, y, z, rx = 0, mat = frameMat) {
-        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-        mesh.position.set(x, y, z); mesh.rotation.x = rx; mesh.castShadow = true; mesh.receiveShadow = true;
-        systemGroup.add(mesh); return mesh;
+      function createBox(w, h, d, x, y, z, rx = 0) {
+        const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), frameMat); mesh.position.set(x, y, z); mesh.rotation.x = rx; mesh.castShadow = true; systemGroup.add(mesh); return mesh;
       }
 
-      createBox(POST_SIZE, FH, POST_SIZE, -W / 2 + POST_SIZE / 2, FH / 2, D / 2 - POST_SIZE / 2);
-      createBox(POST_SIZE, FH, POST_SIZE,  W / 2 - POST_SIZE / 2, FH / 2, D / 2 - POST_SIZE / 2);
-      createBox(POST_SIZE, BH, POST_SIZE, -W / 2 + POST_SIZE / 2, BH / 2, -D / 2 + POST_SIZE / 2);
-      createBox(POST_SIZE, BH, POST_SIZE,  W / 2 - POST_SIZE / 2, BH / 2, -D / 2 + POST_SIZE / 2);
-      createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, FH - BEAM_HEIGHT / 2, D / 2 - BEAM_WIDTH / 2);
-      createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, BH - BEAM_HEIGHT / 2, -D / 2 + BEAM_WIDTH / 2);
+      createBox(POST_SIZE, FH, POST_SIZE, -W / 2 + POST_SIZE / 2, FH / 2, D / 2 - POST_SIZE / 2); createBox(POST_SIZE, FH, POST_SIZE,  W / 2 - POST_SIZE / 2, FH / 2, D / 2 - POST_SIZE / 2);
+      createBox(POST_SIZE, BH, POST_SIZE, -W / 2 + POST_SIZE / 2, BH / 2, -D / 2 + POST_SIZE / 2); createBox(POST_SIZE, BH, POST_SIZE,  W / 2 - POST_SIZE / 2, BH / 2, -D / 2 + POST_SIZE / 2);
+      createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, FH - BEAM_HEIGHT / 2, D / 2 - BEAM_WIDTH / 2); createBox(W, BEAM_HEIGHT, BEAM_WIDTH, 0, BH - BEAM_HEIGHT / 2, -D / 2 + BEAM_WIDTH / 2);
 
-      const slopeLength = Math.sqrt(Math.pow(D, 2) + Math.pow(BH - FH, 2));
-      const pitchAngle = Math.atan2(BH - FH, D);
-      const roofCenterY = (FH + BH) / 2 - BEAM_HEIGHT / 2 + 0.08;
-
-      createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength, -W / 2 + BEAM_WIDTH / 2, roofCenterY, 0, pitchAngle);
-      createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength,  W / 2 - BEAM_WIDTH / 2, roofCenterY, 0, pitchAngle);
+      const slopeLength = Math.sqrt(Math.pow(D, 2) + Math.pow(BH - FH, 2)); const pitchAngle = Math.atan2(BH - FH, D); const roofCenterY = (FH + BH) / 2 - BEAM_HEIGHT / 2 + 0.08;
+      createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength, -W / 2 + BEAM_WIDTH / 2, roofCenterY, 0, pitchAngle); createBox(BEAM_WIDTH, BEAM_HEIGHT, slopeLength,  W / 2 - BEAM_WIDTH / 2, roofCenterY, 0, pitchAngle);
 
       if (currentRoof === 'bioclimatic' || currentRoof === 'rolling_roof') {
         const count = Math.ceil(D / 0.22); const step = D / count;
         for (let i = 0; i < count; i++) {
           const louver = new THREE.Mesh(new THREE.BoxGeometry(W - BEAM_WIDTH * 2, 0.03, step + 0.005), louverMat);
-          const baseZ = -D / 2 + step * (i + 0.5);
-          louver.position.set(0, roofCenterY, baseZ); louver.userData = { baseZ: baseZ, index: i }; louver.castShadow = true;
+          louver.position.set(0, roofCenterY, -D / 2 + step * (i + 0.5)); louver.userData = { baseZ: louver.position.z, index: i }; louver.castShadow = true;
           systemGroup.add(louver); roofActionElements.push(louver);
         }
       } else if (currentRoof === 'pergola') {
         const segments = 12; const segStep = D / segments;
         for (let i = 0; i < segments; i++) {
-          const fGroup = new THREE.Group();
-          const fabric = new THREE.Mesh(new THREE.BoxGeometry(W - 0.15, 0.02, segStep * 0.95), new THREE.MeshStandardMaterial({ color: 0xf8fafc })); fGroup.add(fabric);
-          const baseZ = -D / 2 + segStep * (i + 0.5);
-          fGroup.position.set(0, roofCenterY, baseZ); fGroup.userData = { baseZ: baseZ, index: i };
-          systemGroup.add(fGroup); roofActionElements.push(fGroup);
+          const fGroup = new THREE.Group(); const fabric = new THREE.Mesh(new THREE.BoxGeometry(W - 0.15, 0.02, segStep * 0.95), new THREE.MeshStandardMaterial({ color: 0xf8fafc })); fGroup.add(fabric);
+          fGroup.position.set(0, roofCenterY, -D / 2 + segStep * (i + 0.5)); fGroup.userData = { baseZ: fGroup.position.z, index: i }; systemGroup.add(fGroup); roofActionElements.push(fGroup);
         }
       } else if (currentRoof === 'veranda') {
-        const rG = new THREE.Mesh(new THREE.BoxGeometry(W - 0.05, 0.02, slopeLength), glassMat);
-        rG.position.set(0, roofCenterY, 0); rG.rotation.x = pitchAngle; systemGroup.add(rG);
+        const rG = new THREE.Mesh(new THREE.BoxGeometry(W - 0.05, 0.02, slopeLength), glassMat); rG.position.set(0, roofCenterY, 0); rG.rotation.x = pitchAngle; systemGroup.add(rG);
         const rafterCount = Math.ceil(W / 0.85); const rafterSpacing = W / rafterCount;
         for (let i = 1; i < rafterCount; i++) {
-          const rafX = -W / 2 + i * rafterSpacing;
-          const rafter = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, slopeLength + 0.1), frameMat);
-          rafter.position.set(rafX, roofCenterY - 0.02, 0); rafter.rotation.x = pitchAngle; systemGroup.add(rafter);
+          const rafter = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.12, slopeLength + 0.1), frameMat); rafter.position.set(-W / 2 + i * rafterSpacing, roofCenterY - 0.02, 0); rafter.rotation.x = pitchAngle; systemGroup.add(rafter);
         }
       }
 
       const sides = [
-        { id: 'Front', w: W - POST_SIZE * 2, h: FH - BEAM_HEIGHT, posX: 0, posZ: D / 2 - POST_SIZE / 2, rotY: 0 },
-        { id: 'Back',  w: W - POST_SIZE * 2, h: BH - BEAM_HEIGHT, posX: 0, posZ: -D / 2 + POST_SIZE / 2, rotY: Math.PI },
-        { id: 'Left',  w: D - POST_SIZE * 2, h: (FH + BH) / 2 - BEAM_HEIGHT, posX: -W / 2 + POST_SIZE / 2, posZ: 0, rotY: -Math.PI / 2 },
-        { id: 'Right', w: D - POST_SIZE * 2, h: (FH + BH) / 2 - BEAM_HEIGHT, posX: W / 2 - POST_SIZE / 2, posZ: 0, rotY: Math.PI / 2 }
+        { id: 'Front', w: W - POST_SIZE * 2, h: FH - BEAM_HEIGHT, posX: 0, posZ: D / 2 - POST_SIZE / 2, rotY: 0, xDir: 0, zDir: 1 },
+        { id: 'Back',  w: W - POST_SIZE * 2, h: BH - BEAM_HEIGHT, posX: 0, posZ: -D / 2 + POST_SIZE / 2, rotY: Math.PI, xDir: 0, zDir: -1 },
+        { id: 'Left',  w: D - POST_SIZE * 2, h: (FH + BH) / 2 - BEAM_HEIGHT, posX: -W / 2 + POST_SIZE / 2, posZ: 0, rotY: -Math.PI / 2, xDir: -1, zDir: 0 },
+        { id: 'Right', w: D - POST_SIZE * 2, h: (FH + BH) / 2 - BEAM_HEIGHT, posX: W / 2 - POST_SIZE / 2, posZ: 0, rotY: Math.PI / 2, xDir: 1, zDir: 0 }
       ];
 
       let hasGlass = false; let hasZip = false; let closedSides = 0; let hasInsulatedSystem = false;
@@ -915,46 +753,25 @@
         const type = document.getElementById('glazing' + side.id).value;
         if (type !== 'none') closedSides++;
 
-        const isDoorCombined = type.includes('door_');
-        const isLeft = type.includes('_left');
-        const isGuillotine = type.includes('guillotine');
-        const isSliding = type.includes('sliding');
-        const isCamBalkon = type.includes('cambalkon');
+        const isDoorCombined = type.includes('door_'); const isLeft = type.includes('_left');
+        const isGuillotine = type.includes('guillotine'); const isSliding = type.includes('sliding'); const isCamBalkon = type.includes('cambalkon');
         
-        let doorW = isDoorCombined ? 0.9 : 0;
-        let mullionW = isDoorCombined ? 0.02 : 0; 
-        let spanW = side.w - doorW - mullionW;
-        
+        let doorW = isDoorCombined ? 0.9 : 0; let mullionW = isDoorCombined ? 0.02 : 0; let spanW = side.w - doorW - mullionW;
         let doorCenterLocalX = 0; let mullionLocalX = 0; let glassCenterLocalX = 0;
 
         if (isDoorCombined) {
-            if (isLeft) {
-                doorCenterLocalX = -side.w / 2 + doorW / 2;
-                mullionLocalX = -side.w / 2 + doorW + mullionW / 2;
-                glassCenterLocalX = mullionLocalX + mullionW / 2 + spanW / 2;
-            } else {
-                glassCenterLocalX = -side.w / 2 + spanW / 2;
-                mullionLocalX = -side.w / 2 + spanW + mullionW / 2;
-                doorCenterLocalX = side.w / 2 - doorW / 2;
-            }
+            if (isLeft) { doorCenterLocalX = -side.w / 2 + doorW / 2; mullionLocalX = -side.w / 2 + doorW + mullionW / 2; glassCenterLocalX = mullionLocalX + mullionW / 2 + spanW / 2; } 
+            else { glassCenterLocalX = -side.w / 2 + spanW / 2; mullionLocalX = -side.w / 2 + spanW + mullionW / 2; doorCenterLocalX = side.w / 2 - doorW / 2; }
         } else { glassCenterLocalX = 0; spanW = side.w; }
 
         if (isDoorCombined) {
-            const mullionGeo = new THREE.BoxGeometry(mullionW, side.h, 0.12);
-            const mullion = new THREE.Mesh(mullionGeo, frameMat);
-            let mPos = getWPos(side, mullionLocalX, 0);
-            mullion.position.set(mPos.x, side.h / 2, mPos.z);
-            mullion.rotation.y = side.rotY;
-            systemGroup.add(mullion);
+            const mullion = new THREE.Mesh(new THREE.BoxGeometry(mullionW, side.h, 0.12), frameMat);
+            let mPos = getWPos(side, mullionLocalX, 0); mullion.position.set(mPos.x, side.h / 2, mPos.z); mullion.rotation.y = side.rotY; systemGroup.add(mullion);
         }
 
         if (isSliding || type === 'rts116') {
-          const trackGeo = new THREE.BoxGeometry(spanW, 0.015, 0.08);
-          const track = new THREE.Mesh(trackGeo, frameMat);
-          let tPos = getWPos(side, glassCenterLocalX, 0);
-          track.position.set(tPos.x, 0.008, tPos.z);
-          track.rotation.y = side.rotY;
-          systemGroup.add(track);
+          const track = new THREE.Mesh(new THREE.BoxGeometry(spanW, 0.015, 0.08), frameMat);
+          let tPos = getWPos(side, glassCenterLocalX, 0); track.position.set(tPos.x, 0.008, tPos.z); track.rotation.y = side.rotY; systemGroup.add(track);
         }
 
         if (type === 'wall') {
@@ -962,79 +779,58 @@
           wall.position.set(side.posX, side.h / 2, side.posZ); wall.rotation.y = side.rotY; systemGroup.add(wall);
         } else if (type !== 'none') {
           hasGlass = true;
-
           if (isGuillotine) {
-            let panelCount = 3;
-            for (let i = 0; i < panelCount; i++) {
-                const pGroup = new THREE.Group();
-                let ph = side.h / 3;
-                pGroup.add(createFramedGlass(spanW, ph, 0.04));
-                pGroup.rotation.y = side.rotY;
-                let localX = glassCenterLocalX; let localZ = (1 - i) * 0.04;
-                let wPos = getWPos(side, localX, localZ);
+            for (let i = 0; i < 3; i++) {
+                const pGroup = new THREE.Group(); let ph = side.h / 3; pGroup.add(createFramedGlass(spanW, ph, 0.04)); pGroup.rotation.y = side.rotY;
+                let wPos = getWPos(side, glassCenterLocalX, (1 - i) * 0.04);
                 pGroup.userData = { type: 'guillotine', isFixed: (i === 0), closedY: ph / 2 + i * ph, openY: ph / 2 + i * 0.05, closedX: wPos.x, closedZ: wPos.z };
-                pGroup.position.set(wPos.x, pGroup.userData.closedY, wPos.z);
-                systemGroup.add(pGroup); glassPanels.push(pGroup);
+                pGroup.position.set(wPos.x, pGroup.userData.closedY, wPos.z); systemGroup.add(pGroup); glassPanels.push(pGroup);
             }
           } else if (isSliding || type === 'rts116') {
-            let panelCount = (type === 'rts116') ? 2 : (isDoorCombined ? 2 : 3);
-            let overlap = (type === 'rts116') ? 0.08 : 0.06; let pw = (spanW + overlap * (panelCount - 1)) / panelCount;
+            let panelCount = (type === 'rts116') ? 2 : (isDoorCombined ? 2 : 3); let overlap = (type === 'rts116') ? 0.08 : 0.06; let pw = (spanW + overlap * (panelCount - 1)) / panelCount;
             if(type === 'rts116' || type === 'rwt64') hasInsulatedSystem = true;
             for (let i = 0; i < panelCount; i++) {
                 const pGroup = new THREE.Group(); pGroup.add(createFramedGlass(pw, side.h, 0.04)); pGroup.rotation.y = side.rotY;
-                let pLocalX = (glassCenterLocalX - spanW / 2) + pw / 2 + i * (pw - overlap); let localZ = (1 - i) * (type === 'rts116' ? 0.06 : 0.04);
-                let closedPos = getWPos(side, pLocalX, localZ);
+                let localZ = (1 - i) * (type === 'rts116' ? 0.06 : 0.04);
+                let closedPos = getWPos(side, (glassCenterLocalX - spanW / 2) + pw / 2 + i * (pw - overlap), localZ);
                 let stackTargetX = isLeft ? (glassCenterLocalX + spanW/2 - pw/2) : (glassCenterLocalX - spanW/2 + pw/2);
-                let openLocalX = stackTargetX + (isLeft ? -i*0.05 : i*0.05);
-                if (!isDoorCombined) { openLocalX = (glassCenterLocalX - spanW/2 + pw/2) + i*0.05; }
+                let openLocalX = stackTargetX + (isLeft ? -i*0.05 : i*0.05); if (!isDoorCombined) { openLocalX = (glassCenterLocalX - spanW/2 + pw/2) + i*0.05; }
                 let openPos = getWPos(side, openLocalX, localZ);
-                pGroup.position.set(closedPos.x, side.h / 2, closedPos.z);
-                pGroup.userData = { type: 'sliding', isFixed: (i === 0), closedX: closedPos.x, closedZ: closedPos.z, openX: openPos.x, openZ: openPos.z };
+                pGroup.position.set(closedPos.x, side.h / 2, closedPos.z); pGroup.userData = { type: 'sliding', isFixed: (i === 0), closedX: closedPos.x, closedZ: closedPos.z, openX: openPos.x, openZ: openPos.z };
                 systemGroup.add(pGroup); glassPanels.push(pGroup);
             }
           } else if (type.includes('fd60') || isCamBalkon) {
-            let panelCount = isCamBalkon ? Math.max(4, Math.ceil(spanW / 0.65)) : 4;
-            let pw = spanW / panelCount;
+            let panelCount = isCamBalkon ? Math.max(4, Math.ceil(spanW / 0.65)) : 4; let pw = spanW / panelCount;
             for (let i = 0; i < panelCount; i++) {
                 const pGroup = new THREE.Group();
                 if(isCamBalkon) pGroup.add(createFramelessGlass(pw, side.h)); else pGroup.add(createFramedGlass(pw, side.h, 0.04));
-                let closedLocalX = (glassCenterLocalX - spanW / 2) + pw / 2 + i * pw;
-                let closedPos = getWPos(side, closedLocalX, 0);
-                
+                let closedPos = getWPos(side, (glassCenterLocalX - spanW / 2) + pw / 2 + i * pw, 0);
                 let openLocalX, openLocalZ, openRotY;
                 if(isCamBalkon) {
-                    let stackTargetX = isLeft ? (glassCenterLocalX - spanW/2 + pw/2) : (glassCenterLocalX + spanW/2 - pw/2);
-                    openLocalX = stackTargetX + (isLeft ? i*0.03 : -i*0.03); openLocalZ = 0.15; openRotY = side.rotY + (isLeft ? Math.PI/2.2 : -Math.PI/2.2);
+                    openLocalX = (isLeft ? (glassCenterLocalX - spanW/2 + pw/2) : (glassCenterLocalX + spanW/2 - pw/2)) + (isLeft ? i*0.03 : -i*0.03); 
+                    openLocalZ = 0.15; openRotY = side.rotY + (isLeft ? Math.PI/2.2 : -Math.PI/2.2);
                 } else {
                     openLocalX = (glassCenterLocalX - spanW / 2) + (pw * 0.1) + i * pw * 0.15; openLocalZ = (i % 2 === 0) ? 0.3 : -0.3; openRotY = side.rotY + ((i % 2 === 0) ? 1.2 : -1.2);
                 }
                 let openPos = getWPos(side, openLocalX, openLocalZ);
                 pGroup.userData = { type: isCamBalkon ? 'cambalkon' : 'fd60', closedX: closedPos.x, closedZ: closedPos.z, closedRotY: side.rotY, openX: openPos.x, openZ: openPos.z, openRotY };
-                pGroup.position.set(pGroup.userData.closedX, side.h / 2, pGroup.userData.closedZ); pGroup.rotation.y = side.rotY;
-                systemGroup.add(pGroup); glassPanels.push(pGroup);
+                pGroup.position.set(closedPos.x, side.h / 2, closedPos.z); pGroup.rotation.y = side.rotY; systemGroup.add(pGroup); glassPanels.push(pGroup);
             }
           }
 
           if (isDoorCombined) {
-              const doorH = side.h - 0.03; const doorDir = isLeft ? 'left' : 'right';
-              const doorGroup = createHingedAluminumDoor(doorW, doorH, doorDir);
-              let hingeLocalX = isLeft ? (-side.w / 2) : (side.w / 2);
-              let dClosedPos = getWPos(side, hingeLocalX, 0);
-              doorGroup.position.set(dClosedPos.x, doorH / 2, dClosedPos.z);
-              let closedAngle = side.rotY; let openAngle = side.rotY + (isLeft ? -Math.PI / 2.2 : Math.PI / 2.2);
-              doorGroup.userData = { type: 'hinged_door', closedAngle, openAngle };
-              doorGroup.rotation.y = closedAngle; systemGroup.add(doorGroup); glassPanels.push(doorGroup);
+              const doorDir = isLeft ? 'left' : 'right'; const doorGroup = createHingedAluminumDoor(doorW, side.h - 0.03, doorDir);
+              let dClosedPos = getWPos(side, isLeft ? (-side.w / 2) : (side.w / 2), 0);
+              doorGroup.position.set(dClosedPos.x, (side.h - 0.03) / 2, dClosedPos.z);
+              doorGroup.userData = { type: 'hinged_door', closedAngle: side.rotY, openAngle: side.rotY + (isLeft ? -Math.PI / 2.2 : Math.PI / 2.2) };
+              doorGroup.rotation.y = side.rotY; systemGroup.add(doorGroup); glassPanels.push(doorGroup);
           }
         }
 
         if (document.getElementById('zip' + side.id).checked) {
-          hasZip = true; const offsetOut = 0.09;
-          let zPos = getWPos(side, 0, offsetOut);
-          const cassette = new THREE.Mesh(new THREE.BoxGeometry(side.w + 0.06, 0.1, 0.1), frameMat);
-          cassette.position.set(zPos.x, side.h + 0.05, zPos.z); cassette.rotation.y = side.rotY; systemGroup.add(cassette);
-          const fabric = new THREE.Mesh(new THREE.BoxGeometry(side.w, side.h, 0.005), zipMat); fabric.rotation.y = side.rotY;
-          fabric.userData = { fullHeight: side.h, topAnchorY: side.h }; fabric.position.set(zPos.x, side.h / 2, zPos.z);
-          systemGroup.add(fabric); zipPanels.push(fabric);
+          hasZip = true; let zPos = getWPos(side, 0, 0.09);
+          const cassette = new THREE.Mesh(new THREE.BoxGeometry(side.w + 0.06, 0.1, 0.1), frameMat); cassette.position.set(zPos.x, side.h + 0.05, zPos.z); cassette.rotation.y = side.rotY; systemGroup.add(cassette);
+          const fabric = new THREE.Mesh(new THREE.BoxGeometry(side.w, side.h, 0.005), zipMat); fabric.rotation.y = side.rotY; fabric.userData = { fullHeight: side.h, topAnchorY: side.h }; fabric.position.set(zPos.x, side.h / 2, zPos.z); systemGroup.add(fabric); zipPanels.push(fabric);
         }
       });
 
@@ -1045,48 +841,38 @@
     }
 
     function updateTechHUD(roof, closedSides, hasInsulatedSystem) {
-      const hudSnow = document.getElementById('hud-snow-val'); const hudWind = document.getElementById('hud-wind-val'); const hudIns = document.getElementById('hud-insulation'); const snowBar = document.getElementById('hud-snow-bar'); const windBar = document.getElementById('hud-wind-bar');
-      if (roof === 'bioclimatic') { hudSnow.innerText = '200 kg/m²'; snowBar.style.width = '90%'; hudWind.innerText = '120 km/h'; windBar.style.width = '95%'; }
-      else if (roof === 'rolling_roof') { hudSnow.innerText = '150 kg/m²'; snowBar.style.width = '70%'; hudWind.innerText = '100 km/h'; windBar.style.width = '80%'; }
-      else if (roof === 'pergola') { hudSnow.innerText = 'N/A'; snowBar.style.width = '0%'; hudWind.innerText = '80 km/h'; windBar.style.width = '60%'; }
-      else if (roof === 'veranda') { hudSnow.innerText = '250 kg/m²'; snowBar.style.width = '100%'; hudWind.innerText = '130 km/h'; windBar.style.width = '100%'; }
-
-      if (closedSides === 0) hudIns.innerText = 'Düşük (Açık Sistem)'; else if (hasInsulatedSystem) hudIns.innerText = 'Premium Yalıtım'; else if (closedSides < 4) hudIns.innerText = 'Orta (Yarı Açık)'; else hudIns.innerText = 'Yüksek (Tam Kapalı)';
+      document.getElementById('hud-snow-val').innerText = (roof === 'pergola') ? 'N/A' : ((roof === 'veranda') ? '250 kg/m²' : ((roof === 'bioclimatic') ? '200 kg/m²' : '150 kg/m²'));
+      document.getElementById('hud-wind-val').innerText = (roof === 'pergola') ? '80 km/h' : ((roof === 'veranda') ? '130 km/h' : ((roof === 'bioclimatic') ? '120 km/h' : '100 km/h'));
+      document.getElementById('hud-insulation').innerText = (closedSides === 0) ? 'Düşük (Açık)' : (hasInsulatedSystem ? 'Premium Yalıtım' : (closedSides < 4 ? 'Orta (Yarı Açık)' : 'Yüksek (Kapalı)'));
     }
 
     function applyRoofMechanics() {
       const val = parseFloat(document.getElementById('roofActionVal').value) || 0; const ratio = val / 100;
       if (currentRoof === 'bioclimatic') {
         document.getElementById('roofSliderVal').innerText = `${Math.round(val * 1.1)}°`; roofActionElements.forEach(l => l.rotation.x = (val * 1.1 * Math.PI) / 180);
-      } else if (currentRoof === 'rolling_roof') {
+      } else if (currentRoof === 'rolling_roof' || currentRoof === 'pergola') {
         document.getElementById('roofSliderVal').innerText = `%${Math.round(val)} Açık`; const D = parseFloat(document.getElementById('depth').value) || 3.5;
-        roofActionElements.forEach((louver, idx) => { louver.rotation.x = ratio * (Math.PI / 3); const closedZ = louver.userData.baseZ; const stackedZ = (-D / 2 + POST_SIZE / 2) + idx * 0.06; louver.position.z = closedZ + (stackedZ - closedZ) * ratio; });
-      } else if (currentRoof === 'pergola') {
-        document.getElementById('roofSliderVal').innerText = `%${Math.round(val)} Açık`; const D = parseFloat(document.getElementById('depth').value) || 3.5;
-        roofActionElements.forEach((segment, idx) => { const closedZ = segment.userData.baseZ; const stackedZ = (-D / 2 + POST_SIZE / 2) + idx * 0.05; segment.position.z = closedZ + (stackedZ - closedZ) * ratio; segment.scale.z = Math.max(0.2, 1.0 - ratio * 0.8); });
+        roofActionElements.forEach((el, idx) => { 
+          el.position.z = el.userData.baseZ + ((-D / 2 + POST_SIZE / 2 + idx * (currentRoof === 'rolling_roof' ? 0.06 : 0.05)) - el.userData.baseZ) * ratio; 
+          if(currentRoof === 'pergola') el.scale.z = Math.max(0.2, 1.0 - ratio * 0.8);
+          else el.rotation.x = ratio * (Math.PI / 3);
+        });
       }
     }
 
     function applyGlassOpenness() {
-      const ratio = (parseFloat(document.getElementById('glassOpenness').value) || 0) / 100;
-      document.getElementById('glassVal').innerText = ratio <= 0.02 ? 'Kapalı' : (ratio >= 0.98 ? 'Açık' : `%${Math.round(ratio * 100)}`);
+      const ratio = (parseFloat(document.getElementById('glassOpenness').value) || 0) / 100; document.getElementById('glassVal').innerText = ratio <= 0.02 ? 'Kapalı' : (ratio >= 0.98 ? 'Açık' : `%${Math.round(ratio * 100)}`);
       glassPanels.forEach(p => {
-        if (p.userData.type === 'hinged_door') {
-          p.rotation.y = p.userData.closedAngle + (p.userData.openAngle - p.userData.closedAngle) * ratio;
-        } else if (p.userData.type === 'guillotine' && !p.userData.isFixed) {
-          p.position.y = p.userData.closedY + (p.userData.openY - p.userData.closedY) * ratio;
-        } else if (p.userData.type === 'sliding' || p.userData.type === 'rts116') {
-          p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio; p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio;
-        } else if (p.userData.type === 'fd60' || p.userData.type === 'cambalkon') {
-          p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio; p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio; p.rotation.y = p.userData.closedRotY + (p.userData.openRotY - p.userData.closedRotY) * ratio;
-        }
+        if (p.userData.type === 'hinged_door') p.rotation.y = p.userData.closedAngle + (p.userData.openAngle - p.userData.closedAngle) * ratio;
+        else if (p.userData.type === 'guillotine' && !p.userData.isFixed) p.position.y = p.userData.closedY + (p.userData.openY - p.userData.closedY) * ratio;
+        else if (p.userData.type === 'sliding' || p.userData.type === 'rts116') { p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio; p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio; }
+        else if (p.userData.type === 'fd60' || p.userData.type === 'cambalkon') { p.position.x = p.userData.closedX + (p.userData.openX - p.userData.closedX) * ratio; p.position.z = p.userData.closedZ + (p.userData.openZ - p.userData.closedZ) * ratio; p.rotation.y = p.userData.closedRotY + (p.userData.openRotY - p.userData.closedRotY) * ratio; }
       });
     }
 
     function applyZipOpenness() {
-      const ratio = (parseFloat(document.getElementById('zipOpenness').value) || 0) / 100;
-      document.getElementById('zipVal').innerText = ratio <= 0.02 ? 'Aşağıda (Kapalı)' : (ratio >= 0.98 ? 'Yukarıda (Açık)' : `%${Math.round(ratio * 100)}`);
-      zipPanels.forEach(fabric => { const currentScaleY = Math.max(0.02, 1.0 - ratio); fabric.scale.y = currentScaleY; fabric.position.y = fabric.userData.topAnchorY - (fabric.userData.fullHeight * currentScaleY) / 2; });
+      const ratio = (parseFloat(document.getElementById('zipOpenness').value) || 0) / 100; document.getElementById('zipVal').innerText = ratio <= 0.02 ? 'Aşağıda (Kapalı)' : (ratio >= 0.98 ? 'Yukarıda (Açık)' : `%${Math.round(ratio * 100)}`);
+      zipPanels.forEach(f => { const sY = Math.max(0.02, 1.0 - ratio); f.scale.y = sY; f.position.y = f.userData.topAnchorY - (f.userData.fullHeight * sY) / 2; });
     }
 
     document.getElementById('roofActionVal').addEventListener('input', () => { document.getElementById('autoAnimateCheck').checked = false; applyRoofMechanics(); });
@@ -1095,13 +881,12 @@
 
     function setRoofType(type, btn) {
       currentRoof = type; document.querySelectorAll('.roof-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
-      const ctrl = document.getElementById('roofControls'); const label = document.getElementById('roofSliderLabel'); document.getElementById('roofActionVal').value = 0;
-      if (type === 'bioclimatic') { ctrl.style.display = 'block'; label.innerText = 'Panel Açısı (Somfy):'; } else if (type === 'rolling_roof') { ctrl.style.display = 'block'; label.innerText = 'Çatıyı Aç (Somfy):'; } else if (type === 'pergola') { ctrl.style.display = 'block'; label.innerText = 'Tenteyi Aç (Somfy):'; } else { ctrl.style.display = 'none'; }
+      const ctrl = document.getElementById('roofControls'); const lbl = document.getElementById('roofSliderLabel'); document.getElementById('roofActionVal').value = 0;
+      if (type === 'bioclimatic') { ctrl.style.display = 'block'; lbl.innerText = 'Panel Açısı (Somfy):'; } else if (type === 'rolling_roof' || type === 'pergola') { ctrl.style.display = 'block'; lbl.innerText = 'Çatıyı Aç (Somfy):'; } else { ctrl.style.display = 'none'; }
       buildSystem();
     }
 
     document.getElementById('profileColor').addEventListener('input', e => { const hex = parseInt(e.target.value.replace('#', '0x')); frameMat.color.setHex(hex); louverMat.color.setHex(hex); updateZipColor(hex); });
-
     ['width', 'depth', 'frontHeight'].forEach(id => document.getElementById(id).addEventListener('change', buildSystem));
     document.querySelectorAll('.side-select').forEach(el => el.addEventListener('change', buildSystem)); document.querySelectorAll('.zip-check').forEach(el => el.addEventListener('change', buildSystem));
 
@@ -1109,12 +894,9 @@
 
     function sendWhatsAppOffer() {
       const w = document.getElementById('width').value; const d = document.getElementById('depth').value; const h = document.getElementById('frontHeight').value; const area = (w * d).toFixed(2);
-      const colorSelect = document.getElementById('profileColor'); const colorText = colorSelect.options[colorSelect.selectedIndex].text;
-      const fFront = document.getElementById('glazingFront'); const fBack = document.getElementById('glazingBack'); const fLeft = document.getElementById('glazingLeft'); const fRight = document.getElementById('glazingRight');
-      const frontText = fFront.options[fFront.selectedIndex].text; const backText = fBack.options[fBack.selectedIndex].text; const leftText = fLeft.options[fLeft.selectedIndex].text; const rightText = fRight.options[fRight.selectedIndex].text;
-      const zipF = document.getElementById('zipFront').checked ? "Var" : "Yok"; const zipB = document.getElementById('zipBack').checked ? "Var" : "Yok"; const zipL = document.getElementById('zipLeft').checked ? "Var" : "Yok"; const zipR = document.getElementById('zipRight').checked ? "Var" : "Yok";
-
-      const msg = `*DörtMevsimBahçem - Detaylı Proje Teklif Talebi*\n\n📐 *Ölçüler:* ${w}m Genişlik x ${d}m Derinlik x ${h}m Yükseklik\n📊 *Toplam Alan:* ${area} m²\n🏠 *Çatı Sistemi:* ${currentRoof}\n🎨 *Profil Rengi:* ${colorText}\n\n🚪 *Cephe Tercihleri ve Kapılar:*\n• Ön Cephe: ${frontText}\n• Arka Cephe: ${backText}\n• Sol Cephe: ${leftText}\n• Sağ Cephe: ${rightText}\n\n🪟 *Zip Perde Tercihleri:*\n• Ön: ${zipF} | Arka: ${zipB} | Sol: ${zipL} | Sağ: ${zipR}\n\nBu özelliklere sahip sistem için fiyat teklifi ve detaylı bilgi rica ediyorum.`;
+      const cTxt = document.getElementById('profileColor').options[document.getElementById('profileColor').selectedIndex].text;
+      const getT = id => document.getElementById(id).options[document.getElementById(id).selectedIndex].text;
+      const msg = `*DörtMevsimBahçem - Detaylı Proje Teklif Talebi*\n\n📐 *Ölçüler:* ${w}m x ${d}m x ${h}m\n📊 *Toplam Alan:* ${area} m²\n🏠 *Çatı Sistemi:* ${currentRoof}\n🎨 *Profil Rengi:* ${cTxt}\n\n🚪 *Cepheler:*\n• Ön: ${getT('glazingFront')}\n• Arka: ${getT('glazingBack')}\n• Sol: ${getT('glazingLeft')}\n• Sağ: ${getT('glazingRight')}\n\n🪟 *Zip Perde:*\n• Ön: ${document.getElementById('zipFront').checked?'Var':'Yok'} | Arka: ${document.getElementById('zipBack').checked?'Var':'Yok'} | Sol: ${document.getElementById('zipLeft').checked?'Var':'Yok'} | Sağ: ${document.getElementById('zipRight').checked?'Var':'Yok'}\n\nDetaylı bilgi rica ediyorum.`;
       window.open(`https://wa.me/905389808755?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
@@ -1125,7 +907,7 @@
       requestAnimationFrame(renderLoop); controls.update();
       const autoAnimate = document.getElementById('autoAnimateCheck');
       if (autoAnimate && autoAnimate.checked) {
-        animTime += 0.018; const ratio = (Math.sin(animTime) + 1) / 2;
+        animTime += 0.015; const ratio = (Math.sin(animTime) + 1) / 2;
         document.getElementById('glassOpenness').value = ratio * 100; document.getElementById('zipOpenness').value = (1 - ratio) * 100;
         if (currentRoof !== 'veranda') { document.getElementById('roofActionVal').value = ratio * 100; applyRoofMechanics(); }
         applyGlassOpenness(); applyZipOpenness();
